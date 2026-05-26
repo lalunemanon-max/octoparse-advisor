@@ -6,185 +6,527 @@
 <title>Octoparse — No-Code Web Scraping Tool</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#111827;background:#fff;line-height:1.6}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#0A1628;background:#fff;line-height:1.6}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 :root{
-  --green:#1D9E75;
-  --green-dark:#158a63;
-  --green-light:#e8f7f2;
-  --green-mid:#c5ece0;
-  --gray-50:#f9fafb;
-  --gray-100:#f3f4f6;
-  --gray-200:#e5e7eb;
-  --gray-300:#d1d5db;
-  --gray-500:#6b7280;
+  --blue:#3470FF;
+  --blue-dark:#2558D6;
+  --blue-light:#EBF1FF;
+  --blue-mid:#C0D4FF;
+  --gray-50:#F7F8FA;
+  --gray-100:#F0F2F5;
+  --gray-200:#E2E6EC;
+  --gray-300:#CBD2DC;
+  --gray-400:#9AA3B5;
+  --gray-500:#6B7A99;
   --gray-700:#374151;
-  --gray-900:#111827;
+  --gray-900:#0A1628;
   --shadow:0 4px 24px rgba(0,0,0,0.08);
-  --shadow-lg:0 8px 40px rgba(0,0,0,0.12);
+  --shadow-lg:0 12px 48px rgba(0,0,0,0.12);
 }
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--gray-200);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:22px;font-weight:800;color:var(--green);letter-spacing:-0.5px}
-.nav-links{display:flex;gap:4px}
-.nav-links a{padding:6px 14px;border-radius:6px;font-size:14px;color:var(--gray-700);transition:background .15s}
+/* ── NAV ─────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:#fff;border-bottom:1px solid var(--gray-200);
+  padding:0 40px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-left{display:flex;align-items:center;gap:32px}
+.nav-logo{font-size:20px;font-weight:800;color:var(--gray-900);letter-spacing:-.5px}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:2px}
+.nav-links a{
+  padding:6px 12px;border-radius:6px;font-size:14px;
+  color:var(--gray-700);display:flex;align-items:center;gap:3px;
+  transition:background .15s;white-space:nowrap;
+}
 .nav-links a:hover{background:var(--gray-100)}
+.chevron{width:10px;height:10px;opacity:.45}
 .nav-right{display:flex;align-items:center;gap:8px}
-.btn-text{padding:8px 16px;font-size:14px;color:var(--gray-700);border-radius:8px;transition:background .15s}
-.btn-text:hover{background:var(--gray-100)}
-.btn-cta{padding:8px 20px;background:var(--green);color:#fff;font-size:14px;font-weight:600;border-radius:8px;transition:background .15s}
-.btn-cta:hover{background:var(--green-dark)}
+.nav-dl{
+  display:flex;align-items:center;gap:5px;
+  padding:7px 14px;border-radius:7px;
+  border:1.5px solid var(--blue);color:var(--blue);
+  font-size:13px;font-weight:600;transition:background .15s;
+}
+.nav-dl:hover{background:var(--blue-light)}
+.nav-login{padding:7px 14px;font-size:13px;color:var(--gray-700);border-radius:7px;transition:background .15s}
+.nav-login:hover{background:var(--gray-100)}
+.nav-contact{padding:7px 14px;font-size:13px;color:var(--gray-700);border-radius:7px;transition:background .15s}
+.nav-contact:hover{background:var(--gray-100)}
+.nav-trial{
+  padding:8px 18px;background:var(--blue);color:#fff;
+  font-size:13px;font-weight:600;border-radius:7px;transition:background .15s;
+}
+.nav-trial:hover{background:var(--blue-dark)}
 
-/* HERO */
-.hero{padding:88px 48px 72px;text-align:center;background:linear-gradient(180deg,#fff 0%,var(--gray-50) 100%)}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:100px;background:var(--green-light);color:var(--green);font-size:13px;font-weight:600;margin-bottom:24px}
-.hero h1{font-size:clamp(38px,5.5vw,64px);font-weight:800;line-height:1.12;letter-spacing:-2px;color:var(--gray-900);max-width:860px;margin:0 auto 22px}
-.hero h1 em{font-style:normal;color:var(--green)}
-.hero-sub{font-size:18px;color:var(--gray-500);max-width:540px;margin:0 auto 40px;line-height:1.7}
-.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:56px}
-.hero-btn-primary{padding:14px 28px;background:var(--green);color:#fff;font-size:16px;font-weight:600;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:background .15s,transform .1s}
-.hero-btn-primary:hover{background:var(--green-dark);transform:translateY(-1px)}
-.hero-btn-secondary{padding:14px 28px;border:1.5px solid var(--gray-300);color:var(--gray-700);font-size:16px;font-weight:500;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:border-color .15s,background .15s}
-.hero-btn-secondary:hover{background:var(--gray-50);border-color:var(--gray-400)}
-.hero-stats{display:flex;justify-content:center;gap:48px}
-.stat strong{display:block;font-size:24px;font-weight:800;color:var(--gray-900);letter-spacing:-0.5px}
-.stat span{font-size:13px;color:var(--gray-500)}
+/* ── HERO ─────────────────────────────────── */
+.hero{
+  text-align:center;
+  padding:32px 40px 16px;
+  background:linear-gradient(180deg,var(--blue-light) 0%,#fff 100%);
+}
+.hero h1{
+  font-size:clamp(24px,3.2vw,44px);
+  font-weight:800;line-height:1.13;
+  letter-spacing:-1.5px;color:var(--gray-900);
+  white-space:nowrap;
+  margin:0 auto 10px;
+}
+.hero-sub{
+  font-size:16px;color:var(--gray-500);
+  max-width:520px;margin:0 auto 16px;line-height:1.6;
+}
+.hero-btns{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:0}
+.btn-primary{
+  padding:10px 22px;background:var(--blue);color:#fff;
+  font-size:14px;font-weight:600;border-radius:8px;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:background .15s,transform .1s;
+}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.btn-secondary{
+  padding:10px 18px;border:1.5px solid var(--gray-300);
+  color:var(--gray-700);font-size:14px;font-weight:500;border-radius:8px;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:border-color .15s,background .15s;
+}
+.btn-secondary:hover{border-color:var(--gray-500);background:var(--gray-50)}
 
-/* ADVISOR SECTION — inline flat block */
-.advisor-section{background:#fff;border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:56px 48px 64px}
-.advisor-inner{max-width:800px;margin:0 auto}
-.advisor-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;background:var(--green-light);color:var(--green);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:16px}
-.advisor-title{font-size:30px;font-weight:700;color:var(--gray-900);letter-spacing:-0.8px;margin-bottom:8px}
-.advisor-sub{font-size:15px;color:var(--gray-500);margin-bottom:28px;line-height:1.6}
+/* Rating badges — shown above advisor card */
+.ratings{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 0 12px}
+.hero .ratings{display:none}
+.rating-badge{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:7px;
+  border:1px solid var(--gray-200);background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.rating-platform{font-size:12px;font-weight:700;color:var(--gray-900)}
+.rating-stars{color:#F59E0B;font-size:11px;letter-spacing:1px}
+.rating-score{font-size:12px;font-weight:600;color:var(--gray-700)}
 
-/* INPUT */
-.input-wrap{display:flex;align-items:flex-end;gap:0;background:#fff;border:2px solid var(--gray-200);border-radius:14px;padding:4px 4px 4px 18px;transition:border-color .15s,box-shadow .15s;box-shadow:var(--shadow)}
-.input-wrap:focus-within{border-color:var(--green);box-shadow:0 0 0 4px rgba(29,158,117,0.1),var(--shadow)}
-.input-wrap textarea{flex:1;border:none;outline:none;resize:none;font-size:16px;font-family:inherit;color:var(--gray-900);background:transparent;padding:12px 0;line-height:1.5;min-height:52px;max-height:160px}
-.input-wrap textarea::placeholder{color:var(--gray-300)}
-.send-btn{width:46px;height:46px;border-radius:10px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;align-self:flex-end}
-.send-btn:hover{background:var(--green-dark)}
-.send-btn svg{width:20px;height:20px}
+/* ── AI ADVISOR (replaces animated GIF) ──── */
+.advisor-section{
+  padding:12px 40px 40px;
+  background:#fff;
+}
+.advisor-wrap{max-width:900px;margin:0 auto}
 
-/* QUICK QS */
-.quick-qs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.quick-q{padding:7px 14px;border-radius:100px;border:1.5px solid var(--gray-200);background:#fff;font-size:13px;color:var(--gray-700);transition:border-color .15s,background .15s,color .15s;cursor:pointer}
-.quick-q:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.advisor-card{
+  background:#fff;
+  border:1.5px solid var(--gray-200);
+  border-radius:20px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
 
-/* RESPONSE AREA */
-.response-area{margin-top:28px;display:none}
-.response-area.visible{display:block}
+/* Card top bar */
+.advisor-topbar{
+  background:var(--gray-900);
+  padding:14px 20px;
+  display:flex;align-items:center;gap:10px;
+}
+.topbar-dots{display:flex;gap:6px}
+.topbar-dots span{width:11px;height:11px;border-radius:50%}
+.topbar-dots span:nth-child(1){background:#FF5F57}
+.topbar-dots span:nth-child(2){background:#FFBD2E}
+.topbar-dots span:nth-child(3){background:#28C840}
+.topbar-title{
+  flex:1;text-align:center;
+  font-size:13px;color:rgba(255,255,255,.5);font-weight:500;
+}
+.topbar-badge{
+  display:flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:100px;
+  background:rgba(52,112,255,.25);color:#a0b8ff;
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+}
 
-/* Loading */
-.loading-state{display:flex;align-items:center;gap:12px;padding:20px 0;color:var(--gray-500);font-size:15px}
-.dots{display:flex;gap:5px}
-.dots span{width:7px;height:7px;border-radius:50%;background:var(--green);animation:bounce 1.2s infinite}
+/* Card body */
+.advisor-body{
+  display:grid;
+  grid-template-rows:1fr auto;
+  height:400px;
+}
+
+/* Chat / response area */
+.chat-area{
+  overflow-y:auto;padding:24px 28px;
+  display:flex;flex-direction:column;
+  background:var(--gray-50);
+}
+.chat-area::-webkit-scrollbar{width:4px}
+.chat-area::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+
+/* Welcome */
+.welcome{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:20px;
+}
+.welcome-icon{font-size:40px;margin-bottom:14px}
+.welcome-title{font-size:18px;font-weight:700;color:var(--gray-900);margin-bottom:8px}
+.welcome-desc{font-size:14px;color:var(--gray-500);line-height:1.6;max-width:420px}
+
+/* Input area */
+.input-area{
+  padding:16px 20px 20px;
+  background:#fff;
+  border-top:1px solid var(--gray-200);
+}
+.input-row{
+  display:flex;align-items:flex-end;gap:0;
+  background:var(--gray-50);
+  border:1.5px solid var(--gray-200);
+  border-radius:12px;padding:4px 4px 4px 16px;
+  transition:border-color .15s,box-shadow .15s;
+  margin-bottom:12px;
+}
+.input-row:focus-within{
+  border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(52,112,255,.1);
+}
+.input-row textarea{
+  flex:1;border:none;outline:none;resize:none;
+  font-size:15px;font-family:inherit;color:var(--gray-900);
+  background:transparent;padding:10px 0;line-height:1.5;
+  min-height:44px;max-height:120px;
+}
+.input-row textarea::placeholder{color:var(--gray-300)}
+.send-btn{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .15s;align-self:flex-end;
+}
+.send-btn:hover{background:var(--blue-dark)}
+.send-btn svg{width:18px;height:18px}
+.quick-qs{display:flex;flex-wrap:wrap;gap:7px}
+.quick-q{
+  padding:6px 13px;border-radius:100px;
+  border:1.5px solid var(--gray-200);background:#fff;
+  font-size:13px;color:var(--gray-700);
+  transition:all .15s;cursor:pointer;
+}
+.quick-q:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+/* ── RESPONSE COMPONENTS ─────────────────── */
+.loading-wrap{display:flex;align-items:center;gap:10px;padding:12px 0;color:var(--gray-500);font-size:14px}
+.dots{display:flex;gap:4px}
+.dots span{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:bounce 1.2s infinite}
 .dots span:nth-child(2){animation-delay:.2s}
 .dots span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
 
-/* Response card */
-.response-card{background:#fff;border:1.5px solid var(--gray-200);border-radius:14px;padding:24px;box-shadow:var(--shadow);animation:fadeUp .3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.resp-wrap{animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* Intent row */
-.intent-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.intent-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .intent-badge{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.intent-badge.business{background:#fffbeb;color:#d97706}
-.intent-badge.howto{background:#eff6ff;color:#2563eb}
-.intent-badge.tech{background:#fdf2f8;color:#9333ea}
-.intent-badge.chat{background:var(--green-light);color:var(--green)}
-.intent-text{font-size:14px;color:var(--gray-500)}
+.intent-badge.business{background:#FEF3C7;color:#D97706}
+.intent-badge.howto{background:var(--blue-light);color:var(--blue)}
+.intent-badge.tech{background:#F5F3FF;color:#7C3AED}
+.intent-badge.chat{background:var(--blue-light);color:var(--blue)}
+.intent-text{font-size:13px;color:var(--gray-500)}
 
-.resp-heading{font-size:17px;font-weight:600;color:var(--gray-900);margin-bottom:16px}
-.resp-subtext{font-size:14px;color:var(--gray-500);margin-bottom:20px}
+.resp-heading{font-size:15px;font-weight:600;color:var(--gray-900);margin-bottom:12px}
 
-/* Source grid */
-.source-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
-.source-card{border:1.5px solid var(--gray-200);border-radius:10px;padding:16px;cursor:pointer;transition:border-color .15s,box-shadow .15s,background .15s;display:flex;flex-direction:column;gap:6px}
-.source-card:hover{border-color:var(--green);box-shadow:0 2px 12px rgba(29,158,117,0.12);background:var(--green-light)}
-.source-card-top{display:flex;align-items:center;justify-content:space-between}
-.source-name{font-size:15px;font-weight:600;color:var(--gray-900)}
-.badge-tpl{padding:2px 9px;border-radius:100px;background:var(--green-light);color:var(--green);font-size:11px;font-weight:600}
-.badge-custom{padding:2px 9px;border-radius:100px;background:var(--gray-100);color:var(--gray-500);font-size:11px;font-weight:600}
-.source-desc{font-size:13px;color:var(--gray-500);line-height:1.4}
-.source-cta{font-size:13px;color:var(--green);font-weight:500;margin-top:2px}
+.source-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.source-card{
+  border:1.5px solid var(--gray-200);border-radius:10px;padding:13px;
+  cursor:pointer;background:#fff;transition:border-color .15s,background .15s;
+}
+.source-card:hover{border-color:var(--blue);background:var(--blue-light)}
+.source-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.source-name{font-size:14px;font-weight:600;color:var(--gray-900)}
+.badge-tpl{padding:2px 8px;border-radius:100px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:600}
+.badge-custom{padding:2px 8px;border-radius:100px;background:var(--gray-100);color:var(--gray-500);font-size:11px;font-weight:600}
+.source-desc{font-size:12px;color:var(--gray-500);line-height:1.4;margin-bottom:5px}
+.source-cta{font-size:12px;color:var(--blue);font-weight:500}
 
-/* Template card */
-.tpl-card{border:1.5px solid var(--green);border-radius:10px;padding:16px;background:var(--green-light);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.tpl-name{font-size:15px;font-weight:600;color:var(--gray-900);margin-bottom:6px}
-.tpl-label{font-size:13px;color:var(--gray-500);margin-bottom:6px}
+/* Compact template row */
+.tpl-row{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:7px 10px;border-radius:8px;
+  background:var(--blue-light);border:1px solid var(--blue-mid);
+  margin-bottom:8px;
+}
+.tpl-row-name{font-size:12px;font-weight:600;color:var(--blue)}
+.tpl-btn{
+  padding:5px 12px;background:var(--blue);color:#fff;
+  border-radius:6px;font-size:12px;font-weight:600;
+  white-space:nowrap;display:inline-block;transition:background .15s;flex-shrink:0;
+}
+.tpl-btn:hover{background:var(--blue-dark)}
+
+/* Kept for coverage/custom field display */
 .field-tags{display:flex;flex-wrap:wrap;gap:5px}
-.field-tag{padding:3px 10px;background:#fff;border:1px solid var(--green-mid);border-radius:100px;font-size:12px;color:var(--gray-700)}
-.tpl-btn{padding:10px 18px;background:var(--green);color:#fff;border-radius:8px;font-size:14px;font-weight:600;white-space:nowrap;transition:background .15s;display:inline-block}
-.tpl-btn:hover{background:var(--green-dark)}
+.field-tag{padding:3px 9px;background:#fff;border:1px solid var(--blue-mid);border-radius:100px;font-size:12px;color:var(--gray-700)}
 
-/* Steps */
-.steps{list-style:none;margin-bottom:16px}
-.step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--gray-100)}
-.step:last-child{border-bottom:none}
-.step-n{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step-t{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:2px}
-.step-d{font-size:13px;color:var(--gray-500);line-height:1.5}
+/* Collapsible steps */
+.steps-toggle{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px 4px 8px;border-radius:6px;
+  font-size:12px;font-weight:600;color:var(--gray-500);
+  border:1px solid var(--gray-200);background:#fff;
+  cursor:pointer;transition:all .15s;margin-top:4px;
+}
+.steps-toggle:hover,.steps-toggle[aria-expanded="true"]{
+  border-color:var(--blue);color:var(--blue);background:var(--blue-light);
+}
+.steps-toggle-arrow{transition:transform .18s;display:inline-block;font-style:normal}
+.steps-toggle[aria-expanded="true"] .steps-toggle-arrow{transform:rotate(90deg)}
+.steps-body{display:none;margin-top:8px}
+.steps-body.open{display:block}
 
-/* Solution items */
-.solution{padding:12px;border-radius:8px;background:var(--gray-50);margin-bottom:8px}
-.solution-t{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:4px}
+.steps{list-style:none;margin-bottom:0}
+.step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-100)}
+.step:last-child{border-bottom:none;padding-bottom:2px}
+.step-n{min-width:18px;font-size:12px;font-weight:700;color:var(--gray-400);flex-shrink:0;padding-top:2px;line-height:1.5}
+.step-t{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:1px}
+.step-d{font-size:12px;color:var(--gray-500);line-height:1.45}
+
+.solution{padding:11px;border-radius:8px;background:#fff;border:1px solid var(--gray-200);margin-bottom:8px}
+.solution-t{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:3px}
 .solution-d{font-size:13px;color:var(--gray-500);line-height:1.5}
-.doc-link{display:inline-flex;align-items:center;gap:4px;color:var(--green);font-size:13px;font-weight:500;margin-top:5px}
-.doc-link:hover{text-decoration:underline}
+.doc-link{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-size:13px;font-weight:500;margin-top:5px}
 
-/* Note */
-.note{padding:10px 14px;background:#fffbeb;border-radius:8px;font-size:13px;color:#92400e;margin-bottom:16px}
+.note{padding:9px 13px;background:#FFFBEB;border-radius:8px;font-size:13px;color:#92400E;margin-bottom:12px}
 
-/* CTA row */
-.resp-cta{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--gray-100);flex-wrap:wrap}
-.cta-primary{padding:10px 20px;background:var(--green);color:#fff;border-radius:8px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:background .15s}
-.cta-primary:hover{background:var(--green-dark)}
-.cta-ghost{padding:10px 20px;border:1.5px solid var(--gray-200);color:var(--gray-700);border-radius:8px;font-size:14px;font-weight:500;transition:border-color .15s,background .15s}
+.resp-cta{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-200);flex-wrap:wrap}
+.cta-primary{padding:9px 18px;background:var(--blue);color:#fff;border-radius:8px;font-size:14px;font-weight:600;transition:background .15s;display:inline-flex;align-items:center;gap:5px}
+.cta-primary:hover{background:var(--blue-dark)}
+.cta-ghost{padding:9px 16px;border:1.5px solid var(--gray-200);color:var(--gray-700);border-radius:8px;font-size:14px;transition:border-color .15s,background .15s}
 .cta-ghost:hover{border-color:var(--gray-400);background:var(--gray-50)}
-.handoff{font-size:13px;color:var(--gray-500);margin-left:auto;cursor:pointer;display:flex;align-items:center;gap:4px}
+.handoff{font-size:13px;color:var(--gray-500);margin-left:auto;cursor:pointer}
 .handoff:hover{color:var(--gray-900)}
 
-/* Detail panel */
-.detail-panel{margin-top:16px;padding:20px;border:1.5px solid var(--green-mid);border-radius:10px;background:#fff;animation:fadeUp .25s ease}
-.detail-head{font-size:16px;font-weight:600;color:var(--gray-900);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.back{font-size:13px;color:var(--gray-500);cursor:pointer;font-weight:400}
-.back:hover{color:var(--gray-900)}
+/* Inline field tags (replaces need-analysis block) */
+.resp-tags{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 10px}
+.need-tag{padding:2px 9px;background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:100px;font-size:11px;color:var(--blue);font-weight:500}
 
-/* Chat */
+/* Coverage table */
+.coverage-overview{margin-bottom:10px;border:1px solid var(--gray-200);border-radius:8px;overflow:hidden}
+.coverage-title{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;padding:5px 12px;background:var(--gray-50);border-bottom:1px solid var(--gray-100)}
+.coverage-row{display:flex;align-items:baseline;gap:8px;padding:6px 12px;border-bottom:1px solid var(--gray-100)}
+.coverage-row:last-child{border-bottom:none}
+.coverage-site{font-size:12px;font-weight:600;color:var(--gray-900);white-space:nowrap;min-width:150px;flex-shrink:0}
+.coverage-fields{font-size:11px;color:var(--gray-400);line-height:1.5}
+
+.source-section{
+  border:1px solid var(--gray-200);border-radius:10px;
+  overflow:hidden;margin-bottom:8px;
+}
+.source-header{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;background:var(--gray-50);
+  border-bottom:1px solid var(--gray-100);
+}
+.source-num{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--gray-400);color:#fff;
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.source-header-name{font-size:13px;font-weight:700;color:var(--gray-900);flex:1}
+.source-body{padding:10px 12px}
+.source-why{font-size:12px;color:var(--gray-500);line-height:1.5;margin-bottom:8px}
+
 .chat-text{font-size:15px;color:var(--gray-700);line-height:1.75}
 .chat-text p{margin-bottom:10px}
 .chat-text p:last-child{margin-bottom:0}
 
-/* FEATURES */
-.features{padding:80px 48px}
+/* ── LOGO STRIP ──────────────────────────── */
+.logo-strip{
+  padding:28px 40px;
+  border-top:1px solid var(--gray-200);
+  border-bottom:1px solid var(--gray-200);
+}
+.logo-strip p{text-align:center;font-size:13px;color:var(--gray-500);margin-bottom:18px}
+.logos{display:flex;align-items:center;justify-content:center;gap:0;overflow:hidden}
+.logo-item{
+  padding:8px 24px;
+  font-size:14px;font-weight:700;
+  color:var(--gray-300);
+  border-right:1px solid var(--gray-200);
+  white-space:nowrap;
+}
+.logo-item:last-child{border-right:none}
+
+/* ── FEATURES ────────────────────────────── */
+.features{padding:80px 40px;background:#fff}
 .features-inner{max-width:1100px;margin:0 auto}
-.sec-label{font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.sec-title{font-size:36px;font-weight:800;letter-spacing:-1px;color:var(--gray-900);margin-bottom:10px}
-.sec-sub{font-size:16px;color:var(--gray-500);max-width:460px;margin-bottom:48px}
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.feat-card{padding:24px;border:1.5px solid var(--gray-200);border-radius:12px;transition:border-color .15s}
-.feat-card:hover{border-color:var(--green)}
-.feat-icon{width:44px;height:44px;border-radius:10px;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
-.feat-title{font-size:16px;font-weight:600;color:var(--gray-900);margin-bottom:6px}
-.feat-desc{font-size:14px;color:var(--gray-500);line-height:1.6}
+.sec-label{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.sec-title{font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-1px;color:var(--gray-900);margin-bottom:10px}
+.sec-sub{font-size:16px;color:var(--gray-500);max-width:480px;margin-bottom:48px;line-height:1.6}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat-card{
+  padding:28px;border:1.5px solid var(--gray-200);border-radius:14px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.feat-card:hover{border-color:var(--blue);box-shadow:0 4px 20px rgba(52,112,255,0.08)}
+.feat-icon{width:48px;height:48px;border-radius:12px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+.feat-title{font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px}
+.feat-desc{font-size:14px;color:var(--gray-500);line-height:1.65}
 
-/* FOOTER */
-.footer{background:var(--gray-900);color:#9ca3af;padding:40px 48px;display:flex;align-items:center;justify-content:space-between}
-.footer-logo{font-size:20px;font-weight:800;color:var(--green)}
-.footer-text{font-size:13px}
+/* ── FOOTER ──────────────────────────────── */
+.footer{
+  background:var(--gray-900);color:#6B7A99;
+  padding:36px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-size:18px;font-weight:800;color:#fff}
+.footer-logo span{color:var(--blue)}
 
-@media(max-width:768px){
+/* ── MODAL ───────────────────────────────── */
+/* ── MODAL ────────────────────────────────── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(10,22,40,0.55);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{
+  background:#fff;border-radius:20px;
+  width:100%;max-width:760px;max-height:88vh;
+  display:flex;flex-direction:column;
+  box-shadow:0 24px 80px rgba(0,0,0,0.22);
+  transform:translateY(24px) scale(.98);
+  transition:transform .25s ease;
+}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
+
+/* Header bar */
+.modal-head{
+  padding:12px 16px 12px 20px;
+  border-bottom:1px solid var(--gray-200);
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.modal-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:700;color:var(--blue);flex:1;
+}
+.modal-close{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--gray-100);color:var(--gray-500);
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .15s;
+}
+.modal-close:hover{background:var(--gray-200);color:var(--gray-900)}
+
+/* Scrollable chat area */
+.modal-chat{
+  flex:1;overflow-y:auto;
+  padding:20px 20px 8px;
+  display:flex;flex-direction:column;gap:18px;
+  background:var(--gray-50);
+}
+.modal-chat::-webkit-scrollbar{width:4px}
+.modal-chat::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+
+/* User bubble */
+.msg-user{display:flex;justify-content:flex-end;animation:fadeUp .2s ease}
+.msg-bubble-user{
+  max-width:68%;padding:10px 16px;
+  background:var(--blue);color:#fff;
+  border-radius:16px 16px 4px 16px;
+  font-size:14px;line-height:1.55;word-break:break-word;
+}
+
+/* AI message */
+.msg-ai{display:flex;flex-direction:column;gap:8px;animation:fadeUp .3s ease}
+.msg-ai-row{display:flex;align-items:flex-start;gap:10px}
+.msg-avatar{
+  width:28px;height:28px;border-radius:8px;
+  background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;margin-top:3px;
+}
+.msg-bubble-ai{
+  flex:1;background:#fff;
+  border:1px solid var(--gray-200);
+  border-radius:4px 16px 16px 16px;
+  padding:14px 16px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.05);
+  min-width:0;
+}
+/* tighten inner component spacing inside bubble */
+.msg-bubble-ai .resp-wrap{animation:none}
+.msg-bubble-ai .source-section{margin-bottom:10px}
+.msg-bubble-ai .need-analysis{margin-bottom:12px}
+.msg-bubble-ai .coverage-overview{margin:10px 0 12px}
+
+/* Typing dots */
+.msg-typing .msg-bubble-ai{padding:14px 18px}
+
+/* Suggested follow-ups */
+.suggestions{padding-left:38px}
+.suggestions-label{font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.suggestions-chips{display:flex;flex-wrap:wrap;gap:6px}
+.suggestion-chip{
+  padding:5px 13px;border-radius:100px;
+  border:1.5px solid var(--gray-200);background:#fff;
+  font-size:12px;color:var(--gray-700);
+  cursor:pointer;transition:all .15s;text-align:left;
+}
+.suggestion-chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+/* Modal input bar */
+.modal-input{
+  padding:10px 14px 14px;background:#fff;
+  border-top:1px solid var(--gray-200);flex-shrink:0;
+}
+.modal-input-row{
+  display:flex;align-items:flex-end;gap:0;
+  background:var(--gray-50);border:1.5px solid var(--gray-200);
+  border-radius:12px;padding:4px 4px 4px 14px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.modal-input-row:focus-within{
+  border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(52,112,255,.1);
+}
+.modal-input-row textarea{
+  flex:1;border:none;outline:none;resize:none;
+  font-size:14px;font-family:inherit;color:var(--gray-900);
+  background:transparent;padding:8px 0;line-height:1.5;
+  min-height:38px;max-height:100px;
+}
+.modal-input-row textarea::placeholder{color:var(--gray-300)}
+
+/* Card "sent" state */
+.card-sent{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 16px;border-radius:10px;
+  background:var(--blue-light);color:var(--blue);
+  font-size:14px;font-weight:500;cursor:pointer;transition:background .15s;
+}
+.card-sent:hover{background:var(--blue-mid)}
+.card-sent-icon{font-size:18px}
+
+@media(max-width:960px){
   .nav{padding:0 20px}.nav-links{display:none}
-  .hero{padding:60px 20px 48px}.hero-stats{gap:20px}
-  .advisor-section{padding:40px 20px}
+  .hero{padding:20px 20px 12px}
+  .hero h1{white-space:normal;letter-spacing:-1px}
+  .advisor-section{padding:8px 16px 28px}
+  .advisor-body{height:380px}
   .source-grid{grid-template-columns:1fr}
-  .features{padding:60px 20px}.feat-grid{grid-template-columns:1fr}
-  .footer{padding:32px 20px;flex-direction:column;gap:12px;text-align:center}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .features{padding:56px 20px}
+  .logo-strip{padding:20px}
+  .footer{padding:28px 20px;flex-direction:column;gap:10px;text-align:center}
+}
+@media(max-width:600px){
+  .feat-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
 }
 </style>
 </head>
@@ -192,478 +534,606 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-logo">Octoparse</div>
-  <div class="nav-links">
-    <a href="#">Products</a>
-    <a href="#">Solutions</a>
-    <a href="#">Templates</a>
-    <a href="#">Pricing</a>
-    <a href="#">Resources</a>
+  <div class="nav-left">
+    <div class="nav-logo">Octo<span>parse</span></div>
+    <div class="nav-links">
+      <a href="#">Product <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></a>
+      <a href="#">Solutions <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></a>
+      <a href="#">Pricing</a>
+      <a href="#">Templates <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></a>
+      <a href="#">Data Service</a>
+      <a href="#">Resources <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></a>
+    </div>
   </div>
   <div class="nav-right">
-    <button class="btn-text">Sign In</button>
-    <button class="btn-cta">Start for Free</button>
+    <a href="#" class="nav-dl">⬇ Download</a>
+    <button class="nav-login">Log in</button>
+    <button class="nav-contact">Contact Sales</button>
+    <a href="#" class="nav-trial">Free Trial</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">✨ AI-Powered Data Collection</div>
-  <h1>Turn Any Website Into<br><em>Structured Data</em></h1>
-  <p class="hero-sub">Extract data from any website without coding. Automate collection, export to Excel, CSV, or API — in minutes.</p>
-  <div class="hero-actions">
-    <a href="#" class="hero-btn-primary">Start for Free →</a>
-    <a href="#" class="hero-btn-secondary">▶ Watch Demo</a>
+  <h1>Easy Web Scraping for Anyone</h1>
+  <p class="hero-sub">Octoparse is your no-code solution for web scraping to turn web pages into structured data in minutes.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">Start a free trial</a>
+    <a href="#" class="btn-secondary">▶ Watch a demo</a>
   </div>
-  <div class="hero-stats">
-    <div class="stat"><strong>100K+</strong><span>Active Users</span></div>
-    <div class="stat"><strong>500+</strong><span>Templates</span></div>
-    <div class="stat"><strong>4.8/5</strong><span>G2 Rating</span></div>
-    <div class="stat"><strong>99.9%</strong><span>Uptime</span></div>
+  <!-- Rating badges -->
+  <div class="ratings">
+    <div class="rating-badge">
+      <span class="rating-platform">G2</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.8 / 5</span>
+    </div>
+    <div class="rating-badge">
+      <span class="rating-platform">Capterra</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.7 / 5</span>
+    </div>
+    <div class="rating-badge">
+      <span class="rating-platform">GetApp</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.6 / 5</span>
+    </div>
+    <div class="rating-badge">
+      <span class="rating-platform">Software Advice</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.7 / 5</span>
+    </div>
   </div>
 </section>
 
-<!-- AI ADVISOR — inline flat block below hero -->
+<!-- AI ADVISOR — replaces animated GIF -->
 <section class="advisor-section">
-  <div class="advisor-inner">
-    <div class="advisor-eyebrow">🤖 AI Advisor</div>
-    <h2 class="advisor-title">Describe your data need, get an instant plan</h2>
-    <p class="advisor-sub">Tell me your business goal, a specific website, or a technical challenge — I'll give you a tailored scraping solution right here.</p>
-
-    <div class="input-wrap">
-      <textarea id="msgInput" rows="1" placeholder="e.g. I'm in sales and want to collect leads from LinkedIn…" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" onclick="sendMessage()" title="Send">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-      </button>
+  <!-- Rating badges above the advisor card -->
+  <div class="ratings">
+    <div class="rating-badge">
+      <span class="rating-platform">G2</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.8 / 5</span>
     </div>
-
-    <div class="quick-qs">
-      <button class="quick-q" onclick="useQuick(this)">I'm in sales, want to collect leads</button>
-      <button class="quick-q" onclick="useQuick(this)">How to scrape Amazon products &amp; reviews</button>
-      <button class="quick-q" onclick="useQuick(this)">How to handle CAPTCHA</button>
-      <button class="quick-q" onclick="useQuick(this)">How to export data to Excel or API</button>
-      <button class="quick-q" onclick="useQuick(this)">I'm an ecommerce seller monitoring competitors</button>
+    <div class="rating-badge">
+      <span class="rating-platform">Capterra</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.7 / 5</span>
     </div>
+    <div class="rating-badge">
+      <span class="rating-platform">GetApp</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.6 / 5</span>
+    </div>
+    <div class="rating-badge">
+      <span class="rating-platform">Software Advice</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">4.7 / 5</span>
+    </div>
+  </div>
+  <div class="advisor-wrap">
+    <div class="advisor-card">
 
-    <div class="response-area" id="responseArea"></div>
+      <!-- macOS-style top bar -->
+      <div class="advisor-topbar">
+        <div class="topbar-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="topbar-title">Octoparse AI Advisor</div>
+        <div class="topbar-badge">🤖 AI</div>
+      </div>
+
+      <div class="advisor-body">
+        <!-- Scrollable chat area -->
+        <div class="chat-area" id="chatArea">
+          <div class="welcome" id="welcomeState">
+            <div class="welcome-icon">👋</div>
+            <div class="welcome-title">Describe your data need, get an instant plan</div>
+            <div class="welcome-desc">Tell me your business goal, a specific website, or a technical challenge — I'll give you a tailored scraping solution right here.</div>
+          </div>
+          <div id="responseArea"></div>
+        </div>
+
+        <!-- Input area -->
+        <div class="input-area">
+          <div class="input-row">
+            <textarea id="msgInput" rows="1" placeholder="e.g. I'm in sales and want to collect leads from LinkedIn…" oninput="autoResize(this)"></textarea>
+            <button class="send-btn" onclick="sendMessage()" title="Send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+          <div class="quick-qs">
+            <button class="quick-q" onclick="useQuick(this)">I'm in sales, want to collect leads</button>
+            <button class="quick-q" onclick="useQuick(this)">How to scrape Amazon products &amp; reviews</button>
+            <button class="quick-q" onclick="useQuick(this)">How to handle CAPTCHA</button>
+            <button class="quick-q" onclick="useQuick(this)">How to export data to Excel or API</button>
+            <button class="quick-q" onclick="useQuick(this)">I'm an ecommerce seller monitoring competitors</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
+
+<!-- CUSTOMER LOGO STRIP -->
+<div class="logo-strip">
+  <p>Trusted by 100,000+ users at leading companies</p>
+  <div class="logos">
+    <div class="logo-item">Amazon</div>
+    <div class="logo-item">Deloitte</div>
+    <div class="logo-item">NASA</div>
+    <div class="logo-item">Harvard</div>
+    <div class="logo-item">eBay</div>
+    <div class="logo-item">Shopify</div>
+    <div class="logo-item">Nielsen</div>
+    <div class="logo-item">Cisco</div>
+  </div>
+</div>
 
 <!-- FEATURES -->
 <section class="features">
   <div class="features-inner">
     <div class="sec-label">Why Octoparse</div>
-    <h2 class="sec-title">Everything you need to collect data at scale</h2>
-    <p class="sec-sub">From simple product lists to complex authenticated portals — we handle it all.</p>
+    <h2 class="sec-title">Simple Yet Powerful<br>Data Extraction</h2>
+    <p class="sec-sub">From simple product lists to complex authenticated portals — everything you need to collect data at scale.</p>
     <div class="feat-grid">
-      <div class="feat-card"><div class="feat-icon">🎯</div><div class="feat-title">500+ Ready Templates</div><div class="feat-desc">Pre-built scrapers for Amazon, LinkedIn, Zillow, Yelp, and 490+ more. One click to start collecting.</div></div>
-      <div class="feat-card"><div class="feat-icon">☁️</div><div class="feat-title">Cloud Extraction</div><div class="feat-desc">Run scheduled tasks 24/7 in the cloud. No local machine required, no interruptions.</div></div>
-      <div class="feat-card"><div class="feat-icon">🔄</div><div class="feat-title">Auto Pagination</div><div class="feat-desc">Automatically handles infinite scroll, multi-page navigation, and dynamic content.</div></div>
-      <div class="feat-card"><div class="feat-icon">🔐</div><div class="feat-title">Login &amp; CAPTCHA</div><div class="feat-desc">Collect from authenticated pages with built-in anti-detection and CAPTCHA handling.</div></div>
-      <div class="feat-card"><div class="feat-icon">📊</div><div class="feat-title">Flexible Export</div><div class="feat-desc">Excel, CSV, JSON, API, Webhook, Google Sheets — connect data to wherever you need it.</div></div>
-      <div class="feat-card"><div class="feat-icon">🌍</div><div class="feat-title">Multi-Language Support</div><div class="feat-desc">Available in English, Japanese, French, German. 24/7 support across all regions.</div></div>
+      <div class="feat-card">
+        <div class="feat-icon">🎯</div>
+        <div class="feat-title">No code is the best code</div>
+        <div class="feat-desc">Build scrapers visually with point-and-click. 500+ ready templates for instant use — no programming required.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">Scrape any dynamic website</div>
+        <div class="feat-desc">Full JavaScript rendering, infinite scroll, login pages, and CAPTCHA handling — all built in.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">☁️</div>
+        <div class="feat-title">Scale without the slowdown</div>
+        <div class="feat-desc">Cloud extraction runs 24/7 with automatic IP rotation. Schedule runs without keeping your machine on.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔌</div>
+        <div class="feat-title">Plug into your workflow</div>
+        <div class="feat-desc">Export to Excel, CSV, Google Sheets, or connect via REST API, Webhook, and Zapier.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔐</div>
+        <div class="feat-title">Your data stays secure</div>
+        <div class="feat-desc">SOC 2 compliant infrastructure. Credentials encrypted, never stored on our servers.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌍</div>
+        <div class="feat-title">Multi-language support</div>
+        <div class="feat-desc">Available in English, Japanese, French, German. 24/7 expert support across all regions.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-logo">Octoparse</div>
-  <div class="footer-text">© 2026 Octoparse · Web scraping made simple</div>
+  <div class="footer-logo">Octo<span>parse</span></div>
+  <div>© 2026 Octoparse · Web scraping made simple</div>
 </footer>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-head">
+      <div class="modal-eyebrow">🤖 Octoparse AI Advisor</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-chat" id="modalChat"></div>
+    <div class="modal-input">
+      <div class="modal-input-row">
+        <textarea id="modalInput" rows="1" placeholder="Ask a follow-up question…" oninput="autoResizeModal(this)"></textarea>
+        <button class="send-btn" onclick="sendModalMessage()" title="Send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-// ── Auto-resize textarea ──────────────────────────────────
 function autoResize(el){
   el.style.height='auto';
-  el.style.height=Math.min(el.scrollHeight,160)+'px';
+  el.style.height=Math.min(el.scrollHeight,120)+'px';
 }
 document.getElementById('msgInput').addEventListener('keydown',function(e){
   if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}
 });
-
-// ── Quick questions ───────────────────────────────────────
 function useQuick(btn){
   const inp=document.getElementById('msgInput');
   inp.value=btn.textContent;
   autoResize(inp);
   sendMessage();
 }
+function scrollChat(){
+  const c=document.getElementById('chatArea');
+  c.scrollTop=c.scrollHeight;
+}
 
-// ── Intent classification ─────────────────────────────────
+// ── Intent classification ──────────────────
 function classify(msg){
   const m=msg.toLowerCase();
-  const sites=/\b(amazon|linkedin|zillow|yelp|indeed|glassdoor|ebay|etsy|walmart|aliexpress|tripadvisor|airbnb|booking|redfin|trulia|craigslist|trustpilot|g2|capterra|shopify|twitter|instagram|youtube|reddit)\b/i;
-  const tech=/\b(captcha|verif|login|sign.?in|auth|cookie|paginat|next page|infinite.?scroll|scroll|javascript|js render|dynamic|rate.?limit|block|ban|ip|proxy|export|excel|csv|json|api|webhook|google.?sheet|cloud|schedul|automat)\b/i;
-  const biz=/\b(sales|leads?|prospect|contact|email|crm|hr|recruit|headhunt|candidat|market|competitor|monitor|track|price|real.?estate|propert|listing|ecommerce|supplier|wholesale|vendor|sourcing|review|sentiment)\b/i;
-  if(sites.test(m)) return 'howto';
-  if(tech.test(m)) return 'tech';
-  if(biz.test(m)) return 'business';
+  if(/\b(amazon|linkedin|zillow|yelp|indeed|glassdoor|ebay|etsy|walmart|aliexpress|tripadvisor|airbnb|booking|redfin|shopify|twitter|instagram|youtube|reddit)\b/i.test(m)) return 'howto';
+  if(/\b(captcha|verif|login|sign.?in|auth|cookie|paginat|scroll|dynamic|rate.?limit|block|ban|ip|proxy|export|excel|csv|json|api|webhook|google.?sheet|cloud|schedul)\b/i.test(m)) return 'tech';
+  if(/\b(sales|leads?|prospect|contact|email|hr|recruit|headhunt|candidat|competitor|monitor|track|price|real.?estate|propert|ecommerce|supplier)\b/i.test(m)) return 'business';
   return 'chat';
 }
-function getSite(m){
-  m=m.toLowerCase();
-  if(/amazon/.test(m)) return 'amazon';
-  if(/linkedin/.test(m)) return 'linkedin';
-  if(/zillow|redfin|trulia/.test(m)) return 'zillow';
-  if(/yelp/.test(m)) return 'yelp';
-  if(/indeed|glassdoor/.test(m)) return 'indeed';
-  if(/ebay/.test(m)) return 'ebay';
-  if(/airbnb|booking|tripadvisor/.test(m)) return 'travel';
-  return 'generic';
-}
-function getTech(m){
-  m=m.toLowerCase();
-  if(/captcha|verif/.test(m)) return 'captcha';
-  if(/login|sign.?in|auth|cookie|password/.test(m)) return 'login';
-  if(/paginat|next page|infinite|scroll/.test(m)) return 'pagination';
-  if(/export|excel|csv|json|api|webhook|google.?sheet/.test(m)) return 'export';
-  if(/block|ban|ip|proxy|rate/.test(m)) return 'ratelimit';
-  if(/cloud|schedul|automat/.test(m)) return 'cloud';
-  return 'generic';
-}
-function getBiz(m){
-  m=m.toLowerCase();
-  if(/sales|leads?|prospect|contact|crm/.test(m)) return 'sales';
-  if(/ecommerce|competitor|monitor|price/.test(m)) return 'ecommerce';
-  if(/hr|recruit|headhunt|candidat/.test(m)) return 'hr';
-  if(/real.?estate|propert|listing/.test(m)) return 'realestate';
-  return 'generic';
-}
+function getSite(m){m=m.toLowerCase();if(/amazon/.test(m))return'amazon';if(/linkedin/.test(m))return'linkedin';if(/zillow|redfin/.test(m))return'zillow';if(/yelp/.test(m))return'yelp';if(/indeed|glassdoor/.test(m))return'indeed';if(/ebay/.test(m))return'ebay';if(/airbnb|booking|tripadvisor/.test(m))return'travel';return'generic';}
+function getTech(m){m=m.toLowerCase();if(/captcha|verif/.test(m))return'captcha';if(/login|auth|cookie/.test(m))return'login';if(/paginat|scroll|next page/.test(m))return'pagination';if(/export|excel|csv|api|webhook/.test(m))return'export';if(/block|ban|ip|proxy|rate/.test(m))return'ratelimit';if(/cloud|schedul/.test(m))return'cloud';return'generic';}
+function getBiz(m){m=m.toLowerCase();if(/sales|leads?|prospect|contact/.test(m))return'sales';if(/ecommerce|competitor|monitor|price/.test(m))return'ecommerce';if(/hr|recruit|headhunt/.test(m))return'hr';if(/real.?estate|propert/.test(m))return'realestate';return'generic';}
 
-// ── Data ─────────────────────────────────────────────────
+// ── Data ──────────────────────────────────
 const BIZ={
   sales:{
     intent:"You're in sales and want to collect prospect contact information.",
-    heading:"Best data sources for sales leads:",
+    needTags:["Contact name","Job title","Company","Work email","Phone (optional)","LinkedIn URL"],
+    needNote:"For B2B lead generation, job title (to target decision makers) and work email (for outreach) are the most critical fields. Here are the 3 best sources:",
     sources:[
-      {icon:"💼",name:"LinkedIn",desc:"Professional profiles, job titles, company info, and work emails",badge:"tpl"},
-      {icon:"🔍",name:"ZoomInfo / Apollo.io",desc:"B2B contact databases with verified emails and direct dials",badge:"custom"},
-      {icon:"🌐",name:"Company Websites",desc:"Team pages, About Us sections, contact directories",badge:"custom"},
-      {icon:"📋",name:"Industry Directories",desc:"Trade associations, chamber of commerce, niche B2B portals",badge:"custom"},
+      {icon:"💼",name:"LinkedIn",badge:"tpl",
+       why:"The richest B2B database — 900M+ professional profiles with job titles, companies, and career history. Best for targeting specific roles and industries.",
+       tpl:{name:"LinkedIn Lead Scraper",fields:["Full Name","Job Title","Company","Location","Profile URL","Connections","About"]},
+       steps:[{t:"Filter LinkedIn Search by your target",d:"Search by job title (e.g. 'VP Sales'), industry, company size, and location to get a focused list."},{t:"Run the LinkedIn Lead Scraper template",d:"Automatically extracts name, title, company, location, and profile URL from all search result pages."},{t:"Enrich with verified email",d:"Export the profile list and run through Hunter.io or Apollo.io to append verified work emails."}],
+       note:"⚠️ Use slow extraction mode — stay under 500 profiles per session to avoid account restrictions."},
+      {icon:"🔍",name:"Apollo.io / ZoomInfo",badge:"custom",
+       why:"Pre-built B2B contact databases with verified emails and direct dials. Use Octoparse to extract search results at scale.",
+       tpl:null,
+       fields:["Full Name","Job Title","Company","Work Email","Phone","Company Size","Industry","Location"],
+       steps:[{t:"Search by your Ideal Customer Profile",d:"Filter by industry, company size, revenue, location, and job title to build your target segment."},{t:"Use Octoparse to extract the results",d:"Load the search results page and extract contact cards — name, title, company, and email."},{t:"Export to your CRM",d:"Connect via webhook or export CSV to upload into Salesforce, HubSpot, or your outreach tool."}],
+       note:null},
+      {icon:"🌐",name:"Company Websites",badge:"custom",
+       why:"Many companies list team members and contact info on /about or /team pages. Great for hyper-targeted account-based outreach.",
+       tpl:null,
+       fields:["Contact Name","Job Title","Email","Phone","Department","LinkedIn URL","Company","Location"],
+       steps:[{t:"Build a list of target company URLs",d:"Compile a spreadsheet of target company domains from your ICP — or import from LinkedIn company search."},{t:"Point Octoparse at the team or contact page",d:"Use Auto-Detect: open the /team page, click the name and email fields — Octoparse generates the scraper automatically."},{t:"Run in batch across all companies",d:"Import your URL list and Octoparse visits each page, extracts contacts, and compiles into one export."}],
+       note:null},
     ]
   },
   ecommerce:{
-    intent:"You're an ecommerce seller looking to monitor competitor pricing and products.",
-    heading:"Best platforms to track competitor data:",
+    intent:"You want to monitor competitor pricing and product data.",
+    needTags:["Product name","Current price","Seller","Rating","Stock status","Price history"],
+    needNote:"For competitive intelligence, tracking price + availability changes daily gives you the biggest advantage. Top platforms to monitor:",
     sources:[
-      {icon:"🛒",name:"Amazon",desc:"Product listings, prices, BSR rankings, reviews, seller info",badge:"tpl"},
-      {icon:"🏪",name:"eBay / Etsy",desc:"Marketplace prices, seller feedback, listing trends",badge:"tpl"},
-      {icon:"🏬",name:"Shopify Stores",desc:"Independent store catalogs, pricing, inventory signals",badge:"custom"},
-      {icon:"📦",name:"Alibaba / AliExpress",desc:"Wholesale supplier pricing, MOQ, product specs",badge:"tpl"},
+      {icon:"🛒",name:"Amazon",badge:"tpl",
+       why:"The largest marketplace — product prices, BSR rankings, seller info, and reviews all publicly available.",
+       tpl:{name:"Amazon Product Scraper",fields:["Title","Price","Rating","Review Count","ASIN","Seller","BSR","Images"]},
+       steps:[{t:"Build your product or ASIN list",d:"Use Amazon search or compile competitor ASINs you want to monitor."},{t:"Run the Amazon Product Scraper template",d:"Extracts title, price, rating, review count, seller, and stock status."},{t:"Schedule daily cloud runs",d:"Octoparse collects price data every morning and appends to your dataset automatically."}],
+       note:"⚠️ Enable IP rotation and set 1–2s delays — Amazon rate limiting is aggressive."},
+      {icon:"🏪",name:"eBay / Etsy",badge:"tpl",
+       why:"Marketplace pricing often sets the floor for retail. Tracking sold prices (not just listed) gives real market data.",
+       tpl:{name:"eBay Product Scraper",fields:["Title","Price","Sold Price","Bids","Seller","Condition","Shipping"]},
+       steps:[{t:"Search with product keywords and filters",d:"Filter by category, condition, price range. Switch to 'Sold Items' for actual transaction prices."},{t:"Run the eBay template",d:"Captures listing details, actual sale prices, and seller ratings."},{t:"Export for trend analysis",d:"Build a price history tracker in Excel or connect to a dashboard."}],
+       note:null},
+      {icon:"🏬",name:"Competitor Shopify Stores",badge:"custom",
+       why:"Direct-to-consumer competitors often run Shopify stores — product catalogs and pricing are fully accessible without login.",
+       tpl:null,
+       fields:["Product Name","Price","Original Price","Discount","Description","Category","Stock Status","SKU","Images"],
+       steps:[{t:"Identify target competitor stores",d:"Find direct competitor sites (Shopify stores often have /products/ in the URL structure)."},{t:"Build a custom product scraper",d:"Use Octoparse Auto-Detect: click product name and price fields — it generates the extractor automatically."},{t:"Monitor on a weekly schedule",d:"Run weekly to catch pricing changes, new product launches, and discontinued items."}],
+       note:null},
     ]
   },
   hr:{
-    intent:"You're in HR or recruiting and want to source candidate profiles.",
-    heading:"Best platforms to find candidates:",
+    intent:"You're in recruiting and want to source candidate profiles.",
+    needTags:["Full name","Job title","Skills","Experience","Location","Profile URL","Contact info"],
+    needNote:"For talent sourcing, focus on platforms where your ideal candidates are most active. Key fields: skills + location + contact.",
     sources:[
-      {icon:"💼",name:"LinkedIn",desc:"Professional profiles with skills, experience, and education",badge:"tpl"},
-      {icon:"💻",name:"GitHub / Stack Overflow",desc:"Developer portfolios, tech skills, open-source contributions",badge:"custom"},
-      {icon:"📄",name:"Indeed / Glassdoor",desc:"Job seekers, resumes, salary benchmarks, company reviews",badge:"tpl"},
-      {icon:"🎓",name:"University Alumni Pages",desc:"Recent graduates from target programs and institutions",badge:"custom"},
+      {icon:"💼",name:"LinkedIn",badge:"tpl",
+       why:"900M+ professional profiles with skills, work history, and education — the standard for B2B talent sourcing.",
+       tpl:{name:"LinkedIn Profile Scraper",fields:["Full Name","Job Title","Company","Location","Profile URL","Skills","About"]},
+       steps:[{t:"Build your candidate search",d:"Filter by job title, skills, years of experience, location, and industry. Save the search URL."},{t:"Run the LinkedIn Profile Scraper",d:"Extracts name, title, company, location, skills, and profile URL from all result pages."},{t:"Reach out via LinkedIn or email",d:"For email outreach, run profiles through Hunter.io or use LinkedIn InMail directly."}],
+       note:"⚠️ Keep sessions under 500 profiles and use slow mode to avoid restrictions."},
+      {icon:"💻",name:"GitHub / Stack Overflow",badge:"custom",
+       why:"Best for engineering talent — public profiles show actual code, projects, and technical skills in action.",
+       tpl:null,
+       fields:["Username","Full Name","Location","Top Languages","Public Email","Repositories","Stars","Followers","Bio"],
+       steps:[{t:"Search GitHub by language or topic",d:"Find contributors to relevant repos, or search Stack Overflow by tag and reputation score."},{t:"Extract profile data with Octoparse",d:"Scrape username, bio, location, top languages, and public email (if listed) from profile pages."},{t:"Cross-reference with LinkedIn",d:"Use GitHub usernames to find the same person's LinkedIn profile for full contact details."}],
+       note:null},
+      {icon:"📄",name:"Indeed / Glassdoor",badge:"tpl",
+       why:"Active job seekers post resumes and profiles here — ideal for reaching candidates who are actively looking.",
+       tpl:{name:"Indeed Resume Scraper",fields:["Name","Job Title","Location","Skills","Experience","Education","Resume URL"]},
+       steps:[{t:"Search the resume database",d:"Filter by job title, skills, location, and years of experience."},{t:"Run the Indeed Resume Scraper",d:"Extracts candidate summaries, skills, location, and profile links."},{t:"Contact via Indeed messaging",d:"Reach out directly through Indeed's platform — no email required."}],
+       note:null},
     ]
   },
   realestate:{
-    intent:"You're in real estate and want to collect property listings and market data.",
-    heading:"Best platforms for real estate data:",
+    intent:"You're collecting property listings and real estate market data.",
+    needTags:["Address","Price","Beds / Baths","Sq ft","Days on market","Agent contact","Price history"],
+    needNote:"Most actionable combination: listing price + days on market + agent contact. Top sources for US real estate:",
     sources:[
-      {icon:"🏠",name:"Zillow",desc:"Listings, Zestimate valuations, price history, agent info",badge:"tpl"},
-      {icon:"🔑",name:"Realtor.com / Redfin",desc:"MLS listings, agent contacts, open house schedules",badge:"tpl"},
-      {icon:"🏘️",name:"Airbnb",desc:"Short-term rental prices, availability calendars, host ratings",badge:"tpl"},
-      {icon:"🏢",name:"LoopNet / CoStar",desc:"Commercial real estate listings and market comps",badge:"custom"},
+      {icon:"🏠",name:"Zillow",badge:"tpl",
+       why:"The most comprehensive US real estate database — active listings, sold prices, Zestimate valuations, and agent contacts in one place.",
+       tpl:{name:"Zillow Listing Scraper",fields:["Address","Price","Beds","Baths","Sq Ft","Zestimate","Days on Market","Agent Name","Agent Phone"]},
+       steps:[{t:"Search with your target filters",d:"Set location, price range, property type, and listing status. Copy the results URL."},{t:"Run the Zillow Listing Scraper",d:"Handles infinite scroll — captures all listings with full details automatically."},{t:"Schedule weekly runs",d:"Track price reductions, new listings, and days-on-market changes for your target area."}],
+       note:"💡 Zillow is JS-rendered. Always use cloud extraction mode."},
+      {icon:"🔑",name:"Realtor.com / Redfin",badge:"tpl",
+       why:"MLS-sourced data — often more up-to-date than Zillow for active listings and recent price changes.",
+       tpl:{name:"Realtor.com Listing Scraper",fields:["Address","List Price","Beds","Baths","Sq Ft","Year Built","Agent","Brokerage","Open House"]},
+       steps:[{t:"Run your target area search",d:"Filter by location, price, property type, and listing age."},{t:"Load the Realtor.com template",d:"Extracts MLS listing details including agent contact and open house schedule."},{t:"Compare with Zillow data",d:"Cross-reference both sources for the most complete market picture."}],
+       note:null},
+      {icon:"🏘️",name:"Airbnb",badge:"tpl",
+       why:"For short-term rental investors — nightly rates, occupancy signals, and host data to model revenue potential.",
+       tpl:{name:"Airbnb Listing Scraper",fields:["Property Name","Price/Night","Rating","Review Count","Location","Amenities","Availability","Host Name"]},
+       steps:[{t:"Search your target market",d:"Set location, dates, and property type filters."},{t:"Run the Airbnb Listing Scraper",d:"Captures pricing, ratings, amenities, and availability calendar data."},{t:"Model revenue potential",d:"Combine nightly rate × estimated occupancy to project annual revenue for investment decisions."}],
+       note:null},
     ]
   },
   generic:{
-    intent:"You have a business data collection need — let me suggest the most relevant sources.",
-    heading:"Popular data sources by use case:",
+    intent:"You have a business data collection need.",
+    needTags:["Define your target data","Identify source websites","Choose extraction method"],
+    needNote:"Tell me more about your specific goal or industry and I can recommend the exact sources and methods that match your use case.",
     sources:[
-      {icon:"💼",name:"LinkedIn",desc:"Professional contacts, company info, job postings",badge:"tpl"},
-      {icon:"🛒",name:"Amazon",desc:"Products, prices, reviews, seller information",badge:"tpl"},
-      {icon:"⭐",name:"Yelp / Google Maps",desc:"Local business listings, reviews, contact info",badge:"tpl"},
-      {icon:"📋",name:"Industry-Specific Sites",desc:"Tell me your industry for a targeted recommendation",badge:"custom"},
+      {icon:"💼",name:"LinkedIn",badge:"tpl",
+       why:"Best for B2B contacts, company info, job postings, and professional data across all industries.",
+       tpl:{name:"LinkedIn Scraper",fields:["Name","Title","Company","Location","Profile URL"]},
+       steps:[{t:"Define your target audience",d:"Identify the job titles, industries, and company sizes you're targeting."},{t:"Build your LinkedIn search",d:"Use LinkedIn filters to narrow down to your ideal list."},{t:"Run the template and export",d:"Extract profiles and enrich with emails via Apollo or Hunter."}],
+       note:null},
+      {icon:"⭐",name:"Yelp / Google Maps",badge:"tpl",
+       why:"Best for local business data — contact info, ratings, reviews, hours, and categories for any geography.",
+       tpl:{name:"Yelp Business Scraper",fields:["Business Name","Rating","Phone","Address","Website","Category"]},
+       steps:[{t:"Search for your target category and location",d:"e.g. 'Plumbers in Dallas' or 'Law firms in NYC'."},{t:"Run the Yelp or Google Maps template",d:"Captures all business listings with full contact details."},{t:"Export for outreach or analysis",d:"Use for lead lists, market research, or competitive mapping."}],
+       note:null},
     ]
   }
 };
-
 const HOWTO={
-  amazon:{
-    intent:"Scraping Amazon product listings and review data",
-    tpl:{name:"Amazon Product Scraper",fields:["Product Title","Price","Rating","Review Count","ASIN","Seller Name","Category","Image URLs"]},
-    steps:[
-      {t:"Open Octoparse and go to Templates",d:"Search 'Amazon' — find dedicated scrapers for products, reviews, seller info, and bestseller rankings."},
-      {t:"Enter your Amazon search URL or ASIN list",d:"Paste a search results URL or a list of ASINs. The scraper handles all pagination automatically."},
-      {t:"Select the fields you need",d:"Choose from title, price, rating, review count, seller, images, and more. Add or remove fields freely."},
-      {t:"Run in Cloud (recommended)",d:"Enable cloud extraction to run 24/7. Set a daily schedule for ongoing price monitoring."},
-      {t:"Export your data",d:"Download as Excel/CSV, sync to Google Sheets, or push via webhook to your dashboard or CRM."},
-    ],
-    note:"⚠️ Amazon rate-limits aggressively. Enable IP rotation and set a 1–2s request delay for best results."
-  },
-  linkedin:{
-    intent:"Scraping LinkedIn profiles and company data",
-    tpl:{name:"LinkedIn Profile Scraper",fields:["Full Name","Job Title","Company","Location","Profile URL","Connections","About","Skills"]},
-    steps:[
-      {t:"Build your target list using LinkedIn Search",d:"Apply filters (title, company, location, industry) to focus on your ideal prospects."},
-      {t:"Load the LinkedIn Scraper template in Octoparse",d:"Auto-extracts name, title, company, location, and profile URL from search results pages."},
-      {t:"Enable Login Scraping",d:"LinkedIn requires login. Import your session cookie or use the built-in login flow — credentials are never stored externally."},
-      {t:"Set extraction limits",d:"LinkedIn caps search results at ~1,000. Use multiple targeted searches for larger outreach lists."},
-      {t:"Enrich with email (optional)",d:"Export the profile list and run it through Hunter.io or Apollo to add verified work emails."},
-    ],
-    note:"⚠️ LinkedIn has strict scraping policies. Use slow extraction mode and keep sessions under 500 profiles."
-  },
-  zillow:{
-    intent:"Scraping Zillow property listings and valuations",
-    tpl:{name:"Zillow Listing Scraper",fields:["Address","Price","Bedrooms","Bathrooms","Sq Ft","Zestimate","Days on Market","Agent Info","Photo URLs"]},
-    steps:[
-      {t:"Search Zillow with your target filters",d:"Set location, price range, property type. Copy the search results URL."},
-      {t:"Load the Zillow template in Octoparse",d:"The template handles Zillow's infinite scroll to capture all listings automatically."},
-      {t:"Choose which fields to extract",d:"Select from price, address, Zestimate, days on market, agent contact, photos, and more."},
-      {t:"Set up scheduled cloud runs",d:"Run daily or weekly to track new listings and price changes in your target market."},
-      {t:"Export to Google Sheets",d:"Use the direct Google Sheets integration for a live-updating market tracking dashboard."},
-    ],
-    note:"💡 Zillow uses JavaScript rendering. Cloud extraction handles this automatically — no extra configuration needed."
-  },
-  yelp:{
-    intent:"Scraping Yelp business listings and reviews",
-    tpl:{name:"Yelp Business Scraper",fields:["Business Name","Rating","Review Count","Phone","Address","Website","Hours","Price Range","Categories"]},
-    steps:[
-      {t:"Search Yelp for your target category and location",d:"e.g. 'Italian restaurants in Chicago'. Copy the search results URL."},
-      {t:"Load the Yelp Listing template",d:"Captures all businesses with full contact details, ratings, and hours."},
-      {t:"Optionally add Review scraping",d:"Use the Yelp Reviews template to collect individual reviews per business for sentiment analysis."},
-      {t:"Auto-pagination handles all pages",d:"Yelp shows 10 results per page. The template auto-clicks Next until all results are captured."},
-      {t:"Export and analyze",d:"Export to CSV for competitor analysis, lead generation, or local market research."},
-    ],
-    note:"💡 Yelp is JavaScript-rendered. Octoparse's cloud engine handles this natively."
-  },
-  indeed:{
-    intent:"Scraping job listings from Indeed or Glassdoor",
-    tpl:{name:"Indeed Job Scraper",fields:["Job Title","Company","Location","Salary","Job URL","Posted Date","Description Snippet","Required Skills"]},
-    steps:[
-      {t:"Build your search on Indeed",d:"Set job title, location, salary range, and date posted filters. Copy the search URL."},
-      {t:"Load the Indeed Job Listings template",d:"Extracts job title, company, location, salary (when shown), and links to full descriptions."},
-      {t:"Optionally scrape full descriptions",d:"Enable 'follow links' to visit each job page and extract the complete requirements."},
-      {t:"Set up daily scheduled runs",d:"Track new postings in your target category every morning automatically."},
-      {t:"Export for analysis",d:"Use data for salary research, hiring trend analysis, or talent sourcing."},
-    ],
-    note:"💡 Glassdoor login walls limit anonymous scraping. Use cookie import for authenticated sessions."
-  },
-  ebay:{
-    intent:"Scraping eBay product listings and pricing data",
-    tpl:{name:"eBay Product Scraper",fields:["Item Title","Current Price","Buy It Now Price","Bids","Seller","Condition","Shipping","Item URL","Image URLs"]},
-    steps:[
-      {t:"Search eBay with your target keywords and filters",d:"Apply condition, price range, location, and listing type filters. Copy the URL."},
-      {t:"Load the eBay template in Octoparse",d:"Captures all listing details including auction vs. Buy It Now, bids, and seller ratings."},
-      {t:"Configure pagination",d:"eBay shows up to 200 results per page. The template auto-navigates through all pages."},
-      {t:"Monitor completed listings (optional)",d:"Switch to 'Sold Items' filter to track actual transaction prices — more accurate than listed prices."},
-      {t:"Export and track price trends",d:"Export to Excel and build a price history tracker or feed into your repricing tool."},
-    ],
-    note:"💡 Use cloud extraction with a request delay of 1–2s to avoid triggering eBay's rate limiter."
-  },
-  travel:{
-    intent:"Scraping travel platform data (Airbnb, Booking.com, TripAdvisor)",
-    tpl:{name:"Airbnb Listing Scraper",fields:["Property Name","Price per Night","Rating","Review Count","Location","Amenities","Host Name","Availability","Photos"]},
-    steps:[
-      {t:"Search with your dates and location",d:"Set your target destination, dates, and guest count. Copy the search results URL."},
-      {t:"Load the platform template in Octoparse",d:"We have dedicated templates for Airbnb, Booking.com, and TripAdvisor. Select the right one."},
-      {t:"Extract listing details",d:"Captures price, rating, reviews, amenities, host info, and availability calendar."},
-      {t:"Enable cloud scheduling",d:"Run weekly to track seasonal pricing patterns and competitor availability."},
-      {t:"Export for market analysis",d:"Build a pricing intelligence dashboard or feed data into your revenue management tool."},
-    ],
-    note:"💡 These sites render content dynamically. Always use cloud extraction mode for best results."
-  },
-  generic:{
-    intent:"Scraping data from a specific website",
-    tpl:null,
-    steps:[
-      {t:"Check Octoparse's template library first",d:"Search for your website name — 500+ templates available. If found, skip all setup."},
-      {t:"If no template exists, use Auto-Detect",d:"Open the target page in Octoparse, click the elements you want, and it auto-builds the scraper."},
-      {t:"Handle dynamic content if needed",d:"If the page loads data via JavaScript, use cloud extraction — it renders JS natively."},
-      {t:"Configure pagination",d:"For multi-page results, set up auto-click on the Next button or configure infinite scroll detection."},
-      {t:"Test then launch",d:"Run a test on 1–2 pages, verify the output, then launch the full run and export."},
-    ],
-    note:null
-  }
+  amazon:{intent:"Scraping Amazon product & review data",tpl:{name:"Amazon Product Scraper",fields:["Title","Price","Rating","Reviews","ASIN","Seller","Category","Images"]},steps:[{t:"Go to Templates and search 'Amazon'",d:"Find dedicated scrapers for products, reviews, seller info, and bestsellers."},{t:"Enter your search URL or ASIN list",d:"Paste the Amazon search results URL. Pagination is handled automatically."},{t:"Select the fields you need",d:"Choose price, title, rating, reviews, seller, images, and more."},{t:"Run in Cloud for ongoing monitoring",d:"Schedule daily runs — perfect for price tracking."},{t:"Export to Excel or connect via API",d:"Download directly or sync to Google Sheets."}],note:"⚠️ Enable IP rotation and set a 1–2s request delay for best results."},
+  linkedin:{intent:"Scraping LinkedIn profiles and company data",tpl:{name:"LinkedIn Profile Scraper",fields:["Name","Job Title","Company","Location","Profile URL","Skills","About"]},steps:[{t:"Build your target list in LinkedIn Search",d:"Filter by title, company, location, industry."},{t:"Load the LinkedIn Scraper template",d:"Auto-extracts name, title, company, and profile URL."},{t:"Enable Login Scraping",d:"Import your session cookie — credentials never stored externally."},{t:"Set extraction limits",d:"LinkedIn caps results at ~1,000. Use multiple searches for larger lists."},{t:"Enrich with email (optional)",d:"Run through Hunter.io or Apollo to add verified emails."}],note:"⚠️ Use slow extraction mode, keep sessions under 500 profiles."},
+  zillow:{intent:"Scraping Zillow property listings",tpl:{name:"Zillow Listing Scraper",fields:["Address","Price","Beds","Baths","Sq Ft","Zestimate","Days on Market","Agent"]},steps:[{t:"Search Zillow with your filters",d:"Set location, price range, property type. Copy the URL."},{t:"Load the Zillow template",d:"Handles infinite scroll to capture all listings automatically."},{t:"Select fields to extract",d:"Price, address, Zestimate, days on market, agent info."},{t:"Schedule weekly cloud runs",d:"Track new listings and price changes over time."},{t:"Sync to Google Sheets",d:"Build a live-updating market dashboard."}],note:"💡 Zillow is JS-rendered. Cloud extraction handles this natively."},
+  yelp:{intent:"Scraping Yelp business listings and reviews",tpl:{name:"Yelp Business Scraper",fields:["Business Name","Rating","Reviews","Phone","Address","Website","Hours","Category"]},steps:[{t:"Search Yelp for your category and location",d:"e.g. 'Restaurants in Chicago'. Copy the results URL."},{t:"Load the Yelp template",d:"Captures all businesses with contact details and ratings."},{t:"Optionally add Review scraping",d:"Use the Reviews template for sentiment analysis."},{t:"Auto-pagination handles all pages",d:"Clicks Next automatically until all results are captured."},{t:"Export to CSV",d:"For competitor research or local market analysis."}],note:"💡 Yelp is JS-rendered. Use cloud extraction mode."},
+  indeed:{intent:"Scraping job listings from Indeed or Glassdoor",tpl:{name:"Indeed Job Scraper",fields:["Job Title","Company","Location","Salary","URL","Date Posted","Skills"]},steps:[{t:"Build your search on Indeed",d:"Set title, location, salary filters. Copy the URL."},{t:"Load the Indeed template",d:"Extracts title, company, salary, and description links."},{t:"Follow links for full descriptions",d:"Enable to extract complete job requirements."},{t:"Schedule daily runs",d:"Track new postings each morning automatically."},{t:"Export for analysis",d:"Salary benchmarking, hiring trends, or talent sourcing."}],note:"💡 For Glassdoor, use cookie import for login-gated content."},
+  ebay:{intent:"Scraping eBay product listings and pricing",tpl:{name:"eBay Product Scraper",fields:["Title","Price","Buy It Now","Bids","Seller","Condition","Shipping","URL"]},steps:[{t:"Search eBay with your keywords and filters",d:"Apply condition, price, listing type filters. Copy the URL."},{t:"Load the eBay template",d:"Captures auction vs Buy It Now, bids, seller ratings."},{t:"Auto-navigate through all result pages",d:"Clicks Next until all results are captured."},{t:"Monitor Sold Items for actual prices",d:"Switch to 'Sold Items' for real transaction price data."},{t:"Export and track price trends",d:"Build a price history tracker or repricing feed."}],note:"💡 Set a 1–2s delay between requests."},
+  travel:{intent:"Scraping Airbnb, Booking.com, or TripAdvisor data",tpl:{name:"Airbnb Listing Scraper",fields:["Property Name","Price/Night","Rating","Reviews","Location","Amenities","Availability"]},steps:[{t:"Search with your dates and location",d:"Set destination, dates, guest count. Copy the URL."},{t:"Load the platform template",d:"Templates available for Airbnb, Booking.com, and TripAdvisor."},{t:"Extract listing details",d:"Price, rating, reviews, amenities, host info, availability."},{t:"Schedule weekly runs",d:"Track seasonal pricing and competitor availability."},{t:"Export for market analysis",d:"Build a pricing intelligence dashboard."}],note:"💡 These sites render dynamically. Always use cloud extraction."},
+  generic:{intent:"Scraping data from a specific website",tpl:null,steps:[{t:"Check the Template Library first",d:"500+ templates available — search your website name."},{t:"Use Auto-Detect if no template",d:"Click the elements you want and Octoparse auto-builds the scraper."},{t:"Handle JavaScript if needed",d:"Cloud extraction renders JS natively — no config needed."},{t:"Configure pagination",d:"Set up Next button clicks or infinite scroll detection."},{t:"Test then launch",d:"Verify on 1–2 pages first, then run the full extraction."}],note:null}
 };
-
 const TECH={
-  captcha:{
-    intent:"You're running into CAPTCHA or bot-detection challenges.",
-    heading:"How Octoparse handles CAPTCHAs:",
-    solutions:[
-      {icon:"🔄",t:"IP Rotation (Best first step)",d:"Switch to cloud extraction with automatic IP rotation. Most CAPTCHAs trigger when one IP makes too many requests — rotating removes this.",doc:"Set up IP rotation →"},
-      {icon:"⏱️",t:"Slow Extraction Mode",d:"Set a 2–5 second random delay between requests in Extraction Settings → Request Delay. Mimics human browsing patterns.",doc:"Configure extraction speed →"},
-      {icon:"🤖",t:"Built-in CAPTCHA Solver",d:"For persistent CAPTCHAs, enable Octoparse's built-in solver. Handles reCAPTCHA v2, hCaptcha, and image-based CAPTCHAs automatically.",doc:"Enable CAPTCHA solver →"},
-      {icon:"👤",t:"Manual Checkpoint Fallback",d:"For rare edge cases, set a manual intervention pause. Scraper pauses, you solve it once, then continues automatically.",doc:"Set up manual checkpoint →"},
-    ]
-  },
-  login:{
-    intent:"You need to scrape pages that require user login.",
-    heading:"How to scrape behind login walls:",
-    solutions:[
-      {icon:"🍪",t:"Cookie Import (Fastest)",d:"Log in manually in your browser, export cookies with a browser extension, import into Octoparse. Works for most sites without storing passwords.",doc:"How to import cookies →"},
-      {icon:"🔑",t:"Login Action Recording",d:"Record a login sequence in Octoparse (click field → type → submit). Credentials are encrypted and never transmitted externally.",doc:"Record a login flow →"},
-      {icon:"🔗",t:"OAuth / Google / LinkedIn Login",d:"Use Cookie Import for SSO — authenticate in your browser first, then import the active session cookies into Octoparse.",doc:"Handle OAuth login →"},
-    ]
-  },
-  pagination:{
-    intent:"You're dealing with multi-page results, infinite scroll, or load-more patterns.",
-    heading:"How to handle pagination and dynamic loading:",
-    solutions:[
-      {icon:"➡️",t:"Next Page Button",d:"Right-click the 'Next Page' button in Octoparse → 'Click element'. It auto-clicks through all pages until the button disappears.",doc:"Set up click-based pagination →"},
-      {icon:"📜",t:"Infinite Scroll",d:"Enable 'Auto-scroll to bottom' in Page Actions. Octoparse scrolls, waits for content, and repeats until nothing new loads.",doc:"Configure infinite scroll →"},
-      {icon:"🔗",t:"URL Pattern Pagination",d:"If pages follow a URL pattern (e.g. ?page=2, ?page=3), use Octoparse's URL list generator to build all page URLs automatically.",doc:"Use URL list pagination →"},
-      {icon:"📄",t:"Load More Button",d:"Same as Next button — detect the 'Load More' element, click it, wait for content, loop until the button is gone.",doc:"Handle Load More →"},
-    ]
-  },
-  export:{
-    intent:"You want to export scraped data to Excel, Google Sheets, API, or other systems.",
-    heading:"Export options in Octoparse:",
-    solutions:[
-      {icon:"📊",t:"Excel / CSV Download",d:"After any run, click Export → choose Excel (.xlsx) or CSV. Supports up to 1M rows. Best for one-time analysis.",doc:"Export to Excel →"},
-      {icon:"📋",t:"Google Sheets Integration",d:"Connect directly to a Google Sheet. New data auto-appends or overwrites on schedule. Best for live dashboards.",doc:"Connect Google Sheets →"},
-      {icon:"🔌",t:"REST API Access",d:"Pull data programmatically via Octoparse's REST API. Integrate with your CRM, database, or BI tool. Returns JSON.",doc:"API documentation →"},
-      {icon:"🔔",t:"Webhook (Real-time Push)",d:"Receive data in real-time as it's extracted. Trigger workflows in Zapier, Make, or your custom backend.",doc:"Configure webhooks →"},
-    ]
-  },
-  ratelimit:{
-    intent:"Your scraper is being rate-limited or blocked by the target website.",
-    heading:"How to avoid IP bans and rate limiting:",
-    solutions:[
-      {icon:"🔄",t:"Cloud IP Rotation",d:"Switch to cloud extraction — automatically rotates across a large IP pool so requests look like different users.",doc:"Enable IP rotation →"},
-      {icon:"⏱️",t:"Set Request Delays",d:"Go to Extraction Settings → set 'Random delay' to 2–5 seconds between requests. Mimics human browsing.",doc:"Configure delays →"},
-      {icon:"⏰",t:"Spread Extraction Over Time",d:"Instead of scraping 10K pages in one run, batch into 500–1K chunks with hours between runs using Octoparse Scheduler.",doc:"Set up scheduling →"},
-      {icon:"🌐",t:"Residential Proxy Add-on",d:"For Cloudflare-protected or highly aggressive sites, enable residential proxies — real home IPs that bypass most anti-bot systems.",doc:"Residential proxies →"},
-    ]
-  },
-  cloud:{
-    intent:"You want to automate and schedule scraping tasks in the cloud.",
-    heading:"Cloud extraction and scheduling in Octoparse:",
-    solutions:[
-      {icon:"☁️",t:"Enable Cloud Extraction",d:"In task settings, switch from Local to Cloud. Tasks run on Octoparse servers 24/7 — no need to keep your computer on.",doc:"Cloud extraction guide →"},
-      {icon:"⏰",t:"Set a Schedule",d:"Click Schedule → choose hourly, daily, or weekly cadence. Perfect for price monitoring, job boards, or any regularly updating data.",doc:"Schedule a task →"},
-      {icon:"📬",t:"Completion Notifications",d:"Set up email alerts when a run completes or errors occur. Never miss a failed extraction.",doc:"Configure notifications →"},
-      {icon:"🔄",t:"Incremental Extraction",d:"Octoparse remembers which pages it's already scraped and only processes new content on subsequent runs.",doc:"Incremental extraction →"},
-    ]
-  },
-  generic:{
-    intent:"You have a technical question about web scraping with Octoparse.",
-    heading:"Get the help you need:",
-    solutions:[
-      {icon:"📚",t:"Help Center",d:"200+ step-by-step guides covering every scenario — simple lists to complex authenticated portals.",doc:"Visit Help Center →"},
-      {icon:"🤖",t:"AI Support Chat",d:"Our AI support agent walks you through any technical issue step by step, available 24/7 inside the product.",doc:"Open support chat →"},
-    ]
-  }
+  captcha:{intent:"You're encountering CAPTCHA or bot-detection.",heading:"How Octoparse handles CAPTCHAs:",solutions:[{icon:"🔄",t:"IP Rotation",d:"Cloud extraction rotates IPs automatically. Most CAPTCHAs appear from single-IP overuse.",doc:"Set up IP rotation →"},{icon:"⏱️",t:"Slow Extraction Mode",d:"Set 2–5s random delay in Extraction Settings to mimic human browsing.",doc:"Configure delays →"},{icon:"🤖",t:"Built-in CAPTCHA Solver",d:"Handles reCAPTCHA v2, hCaptcha, and image-based CAPTCHAs automatically.",doc:"Enable solver →"},{icon:"👤",t:"Manual Checkpoint",d:"Scraper pauses for you to solve once, then continues automatically.",doc:"Set up checkpoint →"}]},
+  login:{intent:"You need to scrape behind login walls.",heading:"How to scrape authenticated sites:",solutions:[{icon:"🍪",t:"Cookie Import",d:"Log in in your browser, export cookies, import into Octoparse. No passwords stored.",doc:"Import cookies →"},{icon:"🔑",t:"Login Action Recording",d:"Record click → type → submit. Credentials encrypted and never transmitted.",doc:"Record login →"},{icon:"🔗",t:"OAuth / SSO",d:"Authenticate in your browser first, then import the active session cookies.",doc:"Handle OAuth →"}]},
+  pagination:{intent:"You're dealing with multi-page or infinite scroll content.",heading:"Pagination and dynamic loading solutions:",solutions:[{icon:"➡️",t:"Next Page Button",d:"Right-click 'Next Page' → 'Click element'. Auto-clicks through all pages.",doc:"Pagination guide →"},{icon:"📜",t:"Infinite Scroll",d:"Enable 'Auto-scroll to bottom'. Octoparse scrolls and waits for new content.",doc:"Infinite scroll →"},{icon:"🔗",t:"URL Pattern",d:"If URLs follow a pattern (?page=2), the URL list generator builds all pages.",doc:"URL list guide →"},{icon:"📄",t:"Load More Button",d:"Detect the button, click, wait, loop until it disappears.",doc:"Load More →"}]},
+  export:{intent:"You want to export data to Excel, API, or other systems.",heading:"Export options in Octoparse:",solutions:[{icon:"📊",t:"Excel / CSV",d:"Click Export after any run. Supports up to 1M rows.",doc:"Export guide →"},{icon:"📋",t:"Google Sheets",d:"Direct integration — auto-appends on schedule for live dashboards.",doc:"Google Sheets →"},{icon:"🔌",t:"REST API",d:"Pull data programmatically in JSON. Integrate with any CRM or database.",doc:"API docs →"},{icon:"🔔",t:"Webhook",d:"Real-time push as data is extracted. Trigger Zapier, Make, or your backend.",doc:"Webhooks →"}]},
+  ratelimit:{intent:"Your scraper is being rate-limited or blocked.",heading:"How to avoid IP bans:",solutions:[{icon:"🔄",t:"Cloud IP Rotation",d:"Cloud extraction rotates across a large IP pool automatically.",doc:"Enable rotation →"},{icon:"⏱️",t:"Request Delays",d:"Set 'Random delay 2–5s' in Extraction Settings.",doc:"Configure delays →"},{icon:"⏰",t:"Spread Over Time",d:"Batch 500–1K pages with hours between runs using Octoparse Scheduler.",doc:"Scheduling →"},{icon:"🌐",t:"Residential Proxies",d:"For Cloudflare-protected sites, enable our residential proxy pool.",doc:"Proxy add-on →"}]},
+  cloud:{intent:"You want to automate and schedule scraping.",heading:"Cloud extraction and scheduling:",solutions:[{icon:"☁️",t:"Enable Cloud Extraction",d:"Switch from Local to Cloud in task settings. Runs 24/7 on our servers.",doc:"Cloud guide →"},{icon:"⏰",t:"Set a Schedule",d:"Choose hourly, daily, or weekly cadence.",doc:"Scheduling →"},{icon:"📬",t:"Completion Alerts",d:"Email notifications when runs complete or encounter errors.",doc:"Notifications →"},{icon:"🔄",t:"Incremental Extraction",d:"Only scrape new content on subsequent runs.",doc:"Incremental →"}]},
+  generic:{intent:"You have a technical question.",heading:"Get help:",solutions:[{icon:"📚",t:"Help Center",d:"200+ step-by-step guides for every scenario.",doc:"Visit Help Center →"},{icon:"🤖",t:"AI Support Chat",d:"24/7 AI support agent for technical guidance.",doc:"Open chat →"}]}
 };
 
-// ── Helpers ───────────────────────────────────────────────
-function stepsHTML(steps){
-  return`<ul class="steps">${steps.map((s,i)=>`<li class="step"><div class="step-n">${i+1}</div><div><div class="step-t">${s.t}</div><div class="step-d">${s.d}</div></div></li>`).join('')}</ul>`;
+// ── Helpers ───────────────────────────────
+function stepsHTML(s){
+  const id='steps_'+Math.random().toString(36).slice(2,8);
+  const list=s.map((x,i)=>`<li class="step"><div class="step-n">${i+1}.</div><div><div class="step-t">${x.t}</div><div class="step-d">${x.d}</div></div></li>`).join('');
+  return`<button class="steps-toggle" onclick="toggleSteps(this)" aria-expanded="false" data-target="${id}"><i class="steps-toggle-arrow">▶</i> ${s.length} steps to get started</button><div class="steps-body" id="${id}"><ul class="steps">${list}</ul></div>`;
 }
-function tplHTML(tpl){
-  if(!tpl) return'';
-  return`<div class="tpl-card"><div><div class="tpl-name">📋 ${tpl.name}</div><div class="tpl-label">Extractable fields:</div><div class="field-tags">${tpl.fields.map(f=>`<span class="field-tag">${f}</span>`).join('')}</div></div><a href="#" class="tpl-btn">Use Template →</a></div>`;
+function toggleSteps(btn){
+  const open=btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded',String(!open));
+  const body=document.getElementById(btn.dataset.target);
+  if(body) body.classList.toggle('open',!open);
 }
-function ctaHTML(){
-  return`<div class="resp-cta"><a href="#" class="cta-primary">🚀 Start Free Trial</a><a href="#" class="cta-ghost">Browse Templates</a><span class="handoff" onclick="handoff()">💬 Talk to a specialist</span></div>`;
-}
-function handoff(){alert('In production this opens an Intercom chat with your conversation context pre-filled.');}
+function tplHTML(t){if(!t)return'';return`<div class="tpl-row"><span class="tpl-row-name">📋 ${t.name}</span><a href="#" class="tpl-btn">Use Template →</a></div>`;}
+function ctaHTML(){return'';}  // CTAs live in modal footer
+function handoff(){alert('Opens Intercom chat with your conversation context pre-filled.');}
 
-// ── Renderers ────────────────────────────────────────────
-function renderBusiness(area, rawMsg){
-  const key=getBiz(rawMsg);
-  const d=BIZ[key]||BIZ.generic;
-  area.innerHTML=`<div class="response-card">
-    <div class="intent-row"><span class="intent-badge business">Business Goal</span><span class="intent-text">${d.intent}</span></div>
-    <div class="resp-heading">${d.heading}</div>
-    <div class="source-grid">${d.sources.map((s,i)=>`
-      <div class="source-card" onclick="showDetail(${i},'${key}')">
-        <div class="source-card-top"><div class="source-name">${s.icon} ${s.name}</div><span class="${s.badge==='tpl'?'badge-tpl':'badge-custom'}">${s.badge==='tpl'?'✓ Template':'Custom'}</span></div>
-        <div class="source-desc">${s.desc}</div>
-        <div class="source-cta">View scraping plan →</div>
-      </div>`).join('')}</div>
-    <div id="detailPanel"></div>
-    ${ctaHTML()}
-  </div>`;
-}
+// ── Escape key ──────────────────────────────
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
 
-function showDetail(idx, bizKey){
-  const src=BIZ[bizKey].sources[idx];
-  const siteMap={LinkedIn:'linkedin',Amazon:'amazon',Zillow:'zillow','Realtor.com / Redfin':'zillow',Yelp:'yelp','Indeed / Glassdoor':'indeed',eBay:'ebay','eBay / Etsy':'ebay',Airbnb:'travel'};
-  const hKey=Object.keys(siteMap).find(k=>src.name.includes(k.split('/')[0].trim()));
-  const hw=hKey?HOWTO[siteMap[hKey]]:null;
-  const panel=document.getElementById('detailPanel');
-  panel.innerHTML=`<div class="detail-panel">
-    <div class="detail-head">${src.icon} Scraping ${src.name}<span class="back" onclick="document.getElementById('detailPanel').innerHTML=''">✕ Close</span></div>
-    ${hw?tplHTML(hw.tpl):''}
-    ${hw?stepsHTML(hw.steps):stepsHTML(HOWTO.generic.steps)}
-    ${hw&&hw.note?`<div class="note">${hw.note}</div>`:''}
-    <a href="#" class="cta-primary" style="display:inline-flex">🚀 Start for Free</a>
-  </div>`;
-  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+// ── Modal input enter key ──────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  const mi=document.getElementById('modalInput');
+  if(mi) mi.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendModalMessage();}
+  });
+});
+
+// ── Modal helpers ──────────────────────────
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function autoResizeModal(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,100)+'px';
 }
 
-function renderHowto(area, rawMsg){
-  const key=getSite(rawMsg);
-  const d=HOWTO[key]||HOWTO.generic;
-  area.innerHTML=`<div class="response-card">
-    <div class="intent-row"><span class="intent-badge howto">How-To Guide</span><span class="intent-text">${d.intent}</span></div>
-    ${tplHTML(d.tpl)}
-    <div class="resp-heading">Step-by-step guide:</div>
-    ${stepsHTML(d.steps)}
-    ${d.note?`<div class="note">${d.note}</div>`:''}
-    ${ctaHTML()}
-  </div>`;
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function overlayClick(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
 }
 
-function renderTech(area, rawMsg){
-  const key=getTech(rawMsg);
-  const d=TECH[key]||TECH.generic;
-  area.innerHTML=`<div class="response-card">
-    <div class="intent-row"><span class="intent-badge tech">Technical Solution</span><span class="intent-text">${d.intent}</span></div>
-    <div class="resp-heading">${d.heading}</div>
-    <div>${d.solutions.map(s=>`<div class="solution"><div class="solution-t">${s.icon} ${s.t}</div><div class="solution-d">${s.d}</div><a href="#" class="doc-link">📖 ${s.doc}</a></div>`).join('')}</div>
-    ${ctaHTML()}
-  </div>`;
+// Build response HTML into a temp element, return innerHTML
+function buildResponseHTML(intent,msg){
+  const tmp=document.createElement('div');
+  if(intent==='business') renderBusiness(tmp,msg);
+  else if(intent==='howto') renderHowto(tmp,msg);
+  else if(intent==='tech') renderTech(tmp,msg);
+  else renderChat(tmp,msg);
+  return tmp.innerHTML;
 }
 
-function renderChat(area, rawMsg){
-  const m=rawMsg.toLowerCase();
-  let html='';
-  if(/price|pricing|cost|plan/.test(m)){
-    html=`<p>Octoparse offers plans starting from <strong>$75/month</strong>, with a <strong>free plan</strong> for up to 10 local tasks.</p><p>The Pro plan at <strong>$209/month</strong> is most popular for teams needing cloud extraction and scheduling.</p><p>All paid plans come with a <strong>14-day free trial</strong> — no credit card required.</p>`;
-  } else if(/hello|hi|hey|what can|help/.test(m)){
-    html=`<p>Hi! I'm the Octoparse AI Advisor 👋</p><p>I can help you with:</p><p>• <strong>Find data sources</strong> — describe your business goal (e.g. "I'm in sales and want leads")<br>• <strong>Step-by-step guides</strong> — name a website (e.g. "How to scrape Amazon")<br>• <strong>Technical problems</strong> — describe an issue (e.g. "I keep getting CAPTCHAs")</p><p>What are you trying to collect today?</p>`;
-  } else if(/vs|compare|thunderbit|apify|parsehub/.test(m)){
-    html=`<p>Here's how Octoparse compares:</p><p>• <strong>vs Thunderbit</strong>: Octoparse handles complex, authenticated, and JS-heavy sites at scale — not just simple browser scraping<br>• <strong>vs Apify</strong>: No coding required. Same power, built for business users<br>• <strong>vs ParseHub</strong>: 500+ ready templates means you often don't need to configure anything</p><p>Tell me your specific use case and I'll show you exactly how Octoparse handles it.</p>`;
-  } else {
-    html=`<p>Thanks for reaching out! I specialize in helping you find the right data collection approach.</p><p>Could you tell me more about:</p><p>• What's your business goal or use case?<br>• Is there a specific website you want to scrape?<br>• Are you running into a technical problem?</p><p>The more context, the more specific my recommendation will be.</p>`;
+function getKey(intent,msg){
+  if(intent==='business') return getBiz(msg);
+  if(intent==='howto') return getSite(msg);
+  if(intent==='tech') return getTech(msg);
+  return 'generic';
+}
+
+function getSuggestions(intent,key){
+  const b={
+    sales:["How do I export leads to HubSpot or Salesforce?","How to stay within LinkedIn's daily limits?","How to find verified work emails at scale?"],
+    ecommerce:["How do I schedule daily price monitoring?","How to handle Amazon's rate-limiting?","Can I sync data to Google Sheets automatically?"],
+    hr:["How do I scrape LinkedIn behind login?","How to enrich profiles with verified emails?","How to filter candidates by skills or location?"],
+    realestate:["How to handle Zillow's infinite scroll?","Can I track price changes over time?","How do I export listings to a spreadsheet?"],
+    generic:["How do I export data to Excel or an API?","How to automate with a daily schedule?","What if the website blocks my scraper?"]
+  };
+  const h={
+    amazon:["How to track Amazon price changes daily?","How to scrape Amazon reviews?","How to avoid Amazon's rate limiting?"],
+    linkedin:["How to extract verified emails from profiles?","How to stay under LinkedIn's daily limits?","How to scrape LinkedIn company pages?"],
+    zillow:["How to track price drops automatically?","How to export listings to Google Sheets?","How to also scrape Realtor.com?"],
+    yelp:["Can I also scrape Google Maps listings?","How to extract review text and sentiment?","How to refresh data on a daily schedule?"],
+    indeed:["Can I scrape Glassdoor too?","How to track new job postings daily?","How to extract salary data?"],
+    ebay:["How to monitor sold item prices?","Can I also track Etsy listings?","How to detect pricing trends over time?"],
+    travel:["How to track seasonal pricing changes?","Can I also monitor Booking.com?","How to model occupancy from availability data?"],
+    generic:["How do I set up automatic pagination?","How do I export data to Excel?","How to schedule automatic runs?"]
+  };
+  const t={
+    captcha:["My scraper is also getting rate-limited — how to fix?","How do residential proxies help?","How to configure slow extraction mode?"],
+    login:["How to handle session expiry automatically?","Can I scrape OAuth-protected sites?","How to keep session cookies fresh?"],
+    pagination:["How to handle infinite scroll?","How do I use URL-pattern pagination?","How to detect and click a 'Load More' button?"],
+    export:["How to connect to a live Google Sheet?","How to use the Octoparse REST API?","How to set up a webhook trigger?"],
+    ratelimit:["How do I enable automatic IP rotation?","What delay between requests is recommended?","How do residential proxies work?"],
+    cloud:["How to get email alerts on run completion?","How do incremental runs work?","How to view and replay past run history?"],
+    generic:["How do I set up cloud extraction?","How do I avoid getting blocked?","Where can I find pre-built templates?"]
+  };
+  const chat=["Tell me your data collection goal","How to scrape Amazon products?","How do I handle CAPTCHA?"];
+  if(intent==='business') return b[key]||b.generic;
+  if(intent==='howto') return h[key]||h.generic;
+  if(intent==='tech') return t[key]||t.generic;
+  return chat;
+}
+
+// ── Chat message renderers ─────────────────
+function addUserBubble(text){
+  const chat=document.getElementById('modalChat');
+  const el=document.createElement('div');
+  el.className='msg-user';
+  el.innerHTML=`<div class="msg-bubble-user">${escHtml(text)}</div>`;
+  chat.appendChild(el);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function addTyping(){
+  const chat=document.getElementById('modalChat');
+  const el=document.createElement('div');
+  el.className='msg-ai msg-typing';
+  el.id='typingIndicator';
+  el.innerHTML=`<div class="msg-ai-row"><div class="msg-avatar">🤖</div><div class="msg-bubble-ai"><div class="dots"><span></span><span></span><span></span></div></div></div>`;
+  chat.appendChild(el);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function removeTyping(){
+  const t=document.getElementById('typingIndicator');
+  if(t) t.remove();
+}
+
+function addAIBubble(html,sugs){
+  const chat=document.getElementById('modalChat');
+  const el=document.createElement('div');
+  el.className='msg-ai';
+  let sugHTML='';
+  if(sugs&&sugs.length){
+    sugHTML=`<div class="suggestions"><div class="suggestions-label">You might also ask</div><div class="suggestions-chips">${sugs.map(s=>`<button class="suggestion-chip" onclick="useSuggestion(this)">${escHtml(s)}</button>`).join('')}</div></div>`;
   }
-  area.innerHTML=`<div class="response-card">
-    <div class="intent-row"><span class="intent-badge chat">AI Advisor</span></div>
-    <div class="chat-text">${html}</div>
-    <div class="resp-cta"><a href="#" class="cta-primary">🚀 Start for Free</a><span class="handoff" onclick="handoff()">💬 Talk to a human</span></div>
-  </div>`;
+  el.innerHTML=`<div class="msg-ai-row"><div class="msg-avatar">🤖</div><div class="msg-bubble-ai">${html}</div></div>${sugHTML}`;
+  chat.appendChild(el);
+  chat.scrollTop=chat.scrollHeight;
 }
 
-// ── Main ──────────────────────────────────────────────────
+// ── Modal open/send ────────────────────────
+function openModal(firstMsg){
+  const chat=document.getElementById('modalChat');
+  chat.innerHTML='';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  addUserBubble(firstMsg);
+  addTyping();
+  setTimeout(()=>{
+    removeTyping();
+    const intent=classify(firstMsg);
+    const key=getKey(intent,firstMsg);
+    addAIBubble(buildResponseHTML(intent,firstMsg), getSuggestions(intent,key));
+  },900);
+}
+
+function sendModalMessage(){
+  const inp=document.getElementById('modalInput');
+  const msg=inp.value.trim();
+  if(!msg) return;
+  inp.value=''; inp.style.height='auto';
+  dispatchConv(msg);
+}
+
+function useSuggestion(btn){
+  dispatchConv(btn.textContent.trim());
+}
+
+function dispatchConv(msg){
+  addUserBubble(msg);
+  addTyping();
+  setTimeout(()=>{
+    removeTyping();
+    const intent=classify(msg);
+    const key=getKey(intent,msg);
+    addAIBubble(buildResponseHTML(intent,msg), getSuggestions(intent,key));
+  },900);
+}
+
+// ── Renderers ─────────────────────────────
+function renderBusiness(area,msg){
+  const k=getBiz(msg),d=BIZ[k]||BIZ.generic;
+  // Coverage overview: each source → its extractable fields
+  const coverageHTML=`<div class="coverage-overview"><div class="coverage-title">Websites &amp; extractable fields</div>${d.sources.map(s=>{const fields=s.tpl?s.tpl.fields:(s.fields||[]);return`<div class="coverage-row"><span class="coverage-site">${s.icon} ${s.name}</span><span class="coverage-fields">${fields.join(' · ')}</span></div>`;}).join('')}</div>`;
+  const sourcesHTML=d.sources.map((s,i)=>{
+    return`<div class="source-section">
+      <div class="source-header">
+        <div class="source-num">${i+1}</div>
+        <div class="source-header-name">${s.icon} ${s.name}</div>
+        <span class="${s.badge==='tpl'?'badge-tpl':'badge-custom'}">${s.badge==='tpl'?'✓ Template Available':'Custom Task'}</span>
+      </div>
+      <div class="source-body">
+        <div class="source-why">${s.why}</div>
+        ${s.tpl?tplHTML(s.tpl):''}
+        ${stepsHTML(s.steps)}
+        ${s.note?`<div class="note">${s.note}</div>`:''}
+      </div>
+    </div>`;}).join('');
+  area.innerHTML=`<div class="resp-wrap">
+    <div class="intent-row"><span class="intent-badge business">Business Goal</span><span class="intent-text">${d.intent}</span></div>
+    <div class="resp-tags">${d.needTags.map(t=>`<span class="need-tag">${t}</span>`).join('')}</div>
+    ${coverageHTML}
+    ${sourcesHTML}
+    ${ctaHTML()}
+  </div>`;
+}
+function renderHowto(area,msg){
+  const k=getSite(msg),d=HOWTO[k]||HOWTO.generic;
+  area.innerHTML=`<div class="resp-wrap"><div class="intent-row"><span class="intent-badge howto">How-To Guide</span><span class="intent-text">${d.intent}</span></div>${tplHTML(d.tpl)}${stepsHTML(d.steps)}${d.note?`<div class="note">${d.note}</div>`:''}${ctaHTML()}</div>`;
+}
+function renderTech(area,msg){
+  const k=getTech(msg),d=TECH[k]||TECH.generic;
+  area.innerHTML=`<div class="resp-wrap"><div class="intent-row"><span class="intent-badge tech">Technical Solution</span><span class="intent-text">${d.intent}</span></div><div class="resp-heading">${d.heading}</div>${d.solutions.map(s=>`<div class="solution"><div class="solution-t">${s.icon} ${s.t}</div><div class="solution-d">${s.d}</div><a href="#" class="doc-link">📖 ${s.doc}</a></div>`).join('')}${ctaHTML()}</div>`;
+}
+function renderChat(area,msg){
+  const m=msg.toLowerCase();
+  let h='';
+  if(/price|pricing|cost|plan/.test(m)) h=`<p>Plans start from <strong>$75/month</strong>, with a <strong>free plan</strong> for up to 10 local tasks.</p><p>The Pro plan at <strong>$209/month</strong> adds cloud extraction, scheduling, and team features. All plans include a <strong>14-day free trial</strong>.</p>`;
+  else if(/hello|hi|hey|what can|help/.test(m)) h=`<p>Hi! I'm Octoparse's AI Advisor 👋</p><p>I can help with:<br>• <strong>Data sources</strong> — describe your business goal<br>• <strong>Step-by-step guides</strong> — name a specific website<br>• <strong>Technical problems</strong> — describe the issue</p>`;
+  else h=`<p>I specialize in web scraping with Octoparse. Try asking:</p><p>• What's your data collection goal?<br>• Which website do you want to scrape?<br>• What technical challenge are you facing?</p>`;
+  area.innerHTML=`<div class="resp-wrap"><div class="intent-row"><span class="intent-badge chat">AI Advisor</span></div><div class="chat-text">${h}</div><div class="resp-cta"><a href="#" class="cta-primary">🚀 Start Free Trial</a><span class="handoff" onclick="handoff()">💬 Talk to a human</span></div></div>`;
+}
+
+// ── Send (main card) ───────────────────────
 function sendMessage(){
   const inp=document.getElementById('msgInput');
   const msg=inp.value.trim();
   if(!msg) return;
-  const area=document.getElementById('responseArea');
-  area.className='response-area visible';
-  area.innerHTML=`<div class="loading-state"><div class="dots"><span></span><span></span><span></span></div><span>Analyzing your request…</span></div>`;
-  area.scrollIntoView({behavior:'smooth',block:'nearest'});
-  const intent=classify(msg);
-  setTimeout(()=>{
-    area.innerHTML='';
-    if(intent==='business') renderBusiness(area,msg);
-    else if(intent==='howto') renderHowto(area,msg);
-    else if(intent==='tech') renderTech(area,msg);
-    else renderChat(area,msg);
-    area.scrollIntoView({behavior:'smooth',block:'nearest'});
-  },1100);
+  inp.value=''; autoResize(inp);
+
+  // Show "sent" badge in embedded card
+  const ws=document.getElementById('welcomeState');
+  if(ws) ws.style.display='none';
+  document.getElementById('responseArea').innerHTML=
+    `<div class="card-sent" onclick="openModal('${msg.replace(/'/g,"\\'")}')"><span class="card-sent-icon">✦</span><span>Answer ready — <strong>click to view full plan</strong></span></div>`;
+
+  // Open modal with conversation
+  openModal(msg);
 }
 </script>
 </body>
