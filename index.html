@@ -250,22 +250,19 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 /* Compact template row */
 .tpl-row{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:7px 10px;border-radius:8px;
-  background:var(--blue-light);border:1px solid var(--blue-mid);
-  margin-bottom:8px;
+  display:inline-flex;align-items:center;gap:8px;
+  margin-bottom:10px;
 }
-.tpl-row-name{font-size:12px;font-weight:600;color:var(--blue)}
+.tpl-row-name{font-size:13px;font-weight:500;color:var(--gray-700)}
 .tpl-btn{
-  padding:5px 12px;background:var(--blue);color:#fff;
-  border-radius:6px;font-size:12px;font-weight:600;
-  white-space:nowrap;display:inline-block;transition:background .15s;flex-shrink:0;
+  font-size:12px;font-weight:600;color:var(--blue);
+  white-space:nowrap;display:inline-block;transition:color .15s;
 }
-.tpl-btn:hover{background:var(--blue-dark)}
+.tpl-btn:hover{color:var(--blue-dark)}
 
 /* Kept for coverage/custom field display */
-.field-tags{display:flex;flex-wrap:wrap;gap:5px}
-.field-tag{padding:3px 9px;background:#fff;border:1px solid var(--blue-mid);border-radius:100px;font-size:12px;color:var(--gray-700)}
+.field-tags{font-size:12px;color:var(--gray-400);line-height:1.6;margin:4px 0}
+.field-tag{display:inline;}
 
 /* Collapsible steps */
 .steps-toggle{
@@ -290,14 +287,15 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .step-t{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:1px}
 .step-d{font-size:12px;color:var(--gray-500);line-height:1.45}
 
-.solution{padding:11px;border-radius:8px;background:#fff;border:1px solid var(--gray-200);margin-bottom:8px}
-.solution-t{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:3px}
-.solution-d{font-size:13px;color:var(--gray-500);line-height:1.5}
-.doc-link{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-size:13px;font-weight:500;margin-top:5px}
+.solution{padding:8px 0;border-bottom:1px solid var(--gray-100);margin-bottom:0}
+.solution:last-child{border-bottom:none;padding-bottom:0}
+.solution-t{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:2px}
+.solution-d{font-size:13px;color:var(--gray-500);line-height:1.55}
+.doc-link{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-size:12px;font-weight:500;margin-top:3px}
 
-.note{padding:9px 13px;background:#FFFBEB;border-radius:8px;font-size:13px;color:#92400E;margin-bottom:12px}
+.note{font-size:12px;color:var(--gray-400);margin:6px 0 0;line-height:1.55}
 
-.resp-cta{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-200);flex-wrap:wrap}
+.resp-cta{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--gray-100);flex-wrap:wrap}
 .cta-primary{padding:9px 18px;background:var(--blue);color:#fff;border-radius:8px;font-size:14px;font-weight:600;transition:background .15s;display:inline-flex;align-items:center;gap:5px}
 .cta-primary:hover{background:var(--blue-dark)}
 .cta-ghost{padding:9px 16px;border:1.5px solid var(--gray-200);color:var(--gray-700);border-radius:8px;font-size:14px;transition:border-color .15s,background .15s}
@@ -305,36 +303,115 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .handoff{font-size:13px;color:var(--gray-500);margin-left:auto;cursor:pointer}
 .handoff:hover{color:var(--gray-900)}
 
-/* Inline field tags (replaces need-analysis block) */
-.resp-tags{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 10px}
-.need-tag{padding:2px 9px;background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:100px;font-size:11px;color:var(--blue);font-weight:500}
+/* Template card */
+.tpl-card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--blue-light);border-radius:10px;
+  padding:12px 14px;margin:10px 0 4px;
+}
+.tpl-card-info{flex:1;min-width:0}
+.tpl-card-label{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.tpl-card-name{font-size:14px;font-weight:700;color:var(--gray-900);margin-bottom:3px}
+.tpl-card-fields{font-size:11px;color:var(--gray-500);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tpl-card-btn{
+  flex-shrink:0;padding:8px 16px;
+  background:var(--blue);color:#fff;border-radius:7px;
+  font-size:13px;font-weight:600;white-space:nowrap;
+  transition:background .15s;
+}
+.tpl-card-btn:hover{background:var(--blue-dark)}
 
-/* Coverage table */
-.coverage-overview{margin-bottom:10px;border:1px solid var(--gray-200);border-radius:8px;overflow:hidden}
-.coverage-title{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;padding:5px 12px;background:var(--gray-50);border-bottom:1px solid var(--gray-100)}
-.coverage-row{display:flex;align-items:baseline;gap:8px;padding:6px 12px;border-bottom:1px solid var(--gray-100)}
-.coverage-row:last-child{border-bottom:none}
-.coverage-site{font-size:12px;font-weight:600;color:var(--gray-900);white-space:nowrap;min-width:150px;flex-shrink:0}
+/* Contact support footer — every AI message */
+.support-entry{
+  margin-top:14px;padding-top:11px;
+  border-top:1px solid var(--gray-100);
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--gray-400);
+}
+.support-entry a{color:var(--blue);font-weight:500;text-decoration:none}
+.support-entry a:hover{text-decoration:underline}
+
+/* Resp narrative text */
+.resp-note{font-size:13.5px;color:var(--gray-700);line-height:1.7;margin:4px 0 14px}
+.fields-inline{font-size:12px;color:var(--gray-400);margin:4px 0 8px}
+
+/* Contextual nav links (replaces Start Free Trial) */
+.ctx-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--gray-100)}
+.ctx-link{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:7px 14px;border-radius:7px;
+  border:1.5px solid var(--gray-200);
+  font-size:13px;font-weight:600;color:var(--gray-700);
+  text-decoration:none;transition:border-color .15s,color .15s,background .15s;
+}
+.ctx-link:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+.ctx-link.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ctx-link.primary:hover{background:var(--blue-dark);border-color:var(--blue-dark)}
+
+/* Pricing plan list */
+.pricing-intro{font-size:13.5px;color:var(--gray-700);line-height:1.7;margin-bottom:14px}
+.plan-list{display:flex;flex-direction:column;margin-bottom:10px}
+.plan-row{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100)}
+.plan-row:last-child{border-bottom:none}
+.plan-row.recommended{background:var(--blue-light);border-radius:8px;padding:9px 10px;margin:0 -10px;border-bottom:none}
+.plan-row.recommended+.plan-row{border-top:1px solid var(--gray-100)}
+.plan-name{font-size:13px;font-weight:700;color:var(--gray-900);min-width:110px;flex-shrink:0}
+.plan-price{font-size:13px;font-weight:700;color:var(--blue);min-width:80px;flex-shrink:0}
+.plan-desc{font-size:12px;color:var(--gray-500);line-height:1.5}
+.plan-rec-badge{font-size:10px;font-weight:700;color:var(--blue);background:#fff;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+.pricing-note{font-size:12px;color:var(--gray-400);margin-top:6px;line-height:1.6}
+.plan-rec-box{background:var(--blue-light);border-radius:8px;padding:10px 12px;margin-bottom:14px}
+.plan-rec-box-label{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.plan-rec-box-text{font-size:13px;color:var(--gray-700);line-height:1.6}
+
+/* Custom task onboarding guide */
+.custom-guide{margin:10px 0 4px}
+.custom-guide-label{font-size:11px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.custom-steps{display:flex;flex-direction:column;gap:10px}
+.custom-step{display:flex;gap:10px;align-items:flex-start}
+.custom-step-num{
+  flex-shrink:0;width:20px;height:20px;border-radius:50%;
+  background:var(--gray-900);color:#fff;
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.custom-step-t{font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:2px}
+.custom-step-d{font-size:12px;color:var(--gray-500);line-height:1.55}
+.custom-step-link{
+  display:inline-flex;align-items:center;gap:4px;
+  margin-top:5px;font-size:12px;font-weight:600;color:var(--blue);
+  text-decoration:none;
+}
+.custom-step-link:hover{text-decoration:underline}
+
+/* Inline field tags — plain text */
+.resp-tags{font-size:12px;color:var(--gray-400);margin:2px 0 12px;line-height:1.6}
+.need-tag{display:none}
+
+/* Coverage table — borderless */
+.coverage-overview{margin-bottom:12px}
+.coverage-title{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.coverage-row{display:flex;align-items:baseline;gap:8px;padding:3px 0}
+.coverage-site{font-size:12px;font-weight:600;color:var(--gray-700);white-space:nowrap;min-width:140px;flex-shrink:0}
 .coverage-fields{font-size:11px;color:var(--gray-400);line-height:1.5}
 
 .source-section{
-  border:1px solid var(--gray-200);border-radius:10px;
-  overflow:hidden;margin-bottom:8px;
+  padding:12px 0;
+  border-bottom:1px solid var(--gray-100);
+  margin-bottom:0;
 }
+.source-section:last-child{border-bottom:none;padding-bottom:0}
 .source-header{
   display:flex;align-items:center;gap:8px;
-  padding:9px 12px;background:var(--gray-50);
-  border-bottom:1px solid var(--gray-100);
+  padding:0 0 6px;
 }
 .source-num{
-  width:20px;height:20px;border-radius:50%;
-  background:var(--gray-400);color:#fff;
-  font-size:11px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:11px;font-weight:700;color:var(--gray-400);
+  flex-shrink:0;min-width:16px;
 }
 .source-header-name{font-size:13px;font-weight:700;color:var(--gray-900);flex:1}
-.source-body{padding:10px 12px}
-.source-why{font-size:12px;color:var(--gray-500);line-height:1.5;margin-bottom:8px}
+.source-body{padding:0}
+.source-why{font-size:12px;color:var(--gray-500);line-height:1.55;margin-bottom:8px}
 
 .chat-text{font-size:15px;color:var(--gray-700);line-height:1.75}
 .chat-text p{margin-bottom:10px}
@@ -452,10 +529,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 }
 .msg-bubble-ai{
   flex:1;background:#fff;
-  border:1px solid var(--gray-200);
   border-radius:4px 16px 16px 16px;
   padding:14px 16px;
-  box-shadow:0 1px 4px rgba(0,0,0,0.05);
   min-width:0;
 }
 /* tighten inner component spacing inside bubble */
@@ -763,9 +838,10 @@ function scrollChat(){
 // ── Intent classification ──────────────────
 function classify(msg){
   const m=msg.toLowerCase();
+  if(/\b(how much|pricing|price plan|subscription|discount|coupon|promo|free trial|enterprise plan|billing|annual|monthly plan|tier|compare plan|upgrade|what.?plan|which plan)\b/i.test(m)) return 'pricing';
   if(/\b(amazon|linkedin|zillow|yelp|indeed|glassdoor|ebay|etsy|walmart|aliexpress|tripadvisor|airbnb|booking|redfin|shopify|twitter|instagram|youtube|reddit)\b/i.test(m)) return 'howto';
   if(/\b(captcha|verif|login|sign.?in|auth|cookie|paginat|scroll|dynamic|rate.?limit|block|ban|ip|proxy|export|excel|csv|json|api|webhook|google.?sheet|cloud|schedul)\b/i.test(m)) return 'tech';
-  if(/\b(sales|leads?|prospect|contact|email|hr|recruit|headhunt|candidat|competitor|monitor|track|price|real.?estate|propert|ecommerce|supplier)\b/i.test(m)) return 'business';
+  if(/\b(sales|leads?|prospect|contact|email|hr|recruit|headhunt|candidat|competitor|monitor|track|real.?estate|propert|ecommerce|supplier)\b/i.test(m)) return 'business';
   return 'chat';
 }
 function getSite(m){m=m.toLowerCase();if(/amazon/.test(m))return'amazon';if(/linkedin/.test(m))return'linkedin';if(/zillow|redfin/.test(m))return'zillow';if(/yelp/.test(m))return'yelp';if(/indeed|glassdoor/.test(m))return'indeed';if(/ebay/.test(m))return'ebay';if(/airbnb|booking|tripadvisor/.test(m))return'travel';return'generic';}
@@ -904,11 +980,76 @@ const TECH={
   generic:{intent:"You have a technical question.",heading:"Get help:",solutions:[{icon:"📚",t:"Help Center",d:"200+ step-by-step guides for every scenario.",doc:"Visit Help Center →"},{icon:"🤖",t:"AI Support Chat",d:"24/7 AI support agent for technical guidance.",doc:"Open chat →"}]}
 };
 
+// ── Pricing data ──────────────────────────
+const PRICING={
+  intro:"Octoparse offers four plans — from a free tier for individuals to enterprise-grade extraction at scale. All paid plans include cloud extraction, scheduling, and API export.",
+  plans:[
+    {name:"Free",     price:"$0 / mo",   desc:"10 local tasks · 10,000 records per task · community support"},
+    {name:"Standard", price:"$75 / mo",  desc:"Cloud extraction · 10 cloud tasks · API & webhook export · email support"},
+    {name:"Pro",      price:"$209 / mo", desc:"Unlimited cloud tasks · IP rotation · 5 team seats · priority support"},
+    {name:"Enterprise",price:"Custom",   desc:"Dedicated servers · SLA · custom integrations · dedicated account manager"},
+  ],
+  discount:"Annual billing saves up to 40%. Education, nonprofit, and startup discounts available — contact our sales team.",
+  note:"All paid plans start with a 14-day free trial. No credit card required."
+};
+
+// ── Conversation context ───────────────────
+let convCtx = { intent: null, key: null };
+
+function updateCtx(intent, key) {
+  // Only overwrite context with meaningful intents; pricing/chat don't replace prior context
+  if (intent !== 'pricing' && intent !== 'chat') {
+    convCtx = { intent, key };
+  }
+}
+
+function getRecommendedPlan(ctx) {
+  if (!ctx.intent) return null;
+
+  const map = {
+    business: {
+      sales:      { plan:'Pro',      reason:'B2B lead generation at scale requires IP rotation and higher cloud task limits — both included in Pro.' },
+      ecommerce:  { plan:'Pro',      reason:'Daily competitor price monitoring across multiple sites runs best with unlimited cloud tasks and IP rotation on Pro.' },
+      hr:         { plan:'Pro',      reason:'Sourcing candidates from LinkedIn at scale needs slow extraction mode and IP rotation, which are Pro features.' },
+      realestate: { plan:'Standard', reason:'Property listing scraping and weekly scheduling work smoothly on Standard — cloud extraction handles JS-rendered pages natively.' },
+      generic:    { plan:'Standard', reason:'For most business data collection use cases, Standard provides cloud extraction, scheduling, and API export at a reasonable cost.' },
+    },
+    howto: {
+      amazon:   { plan:'Pro',      reason:'Amazon enforces strict rate limits — Pro\'s IP rotation and residential proxy add-on keep your tasks running reliably.' },
+      linkedin: { plan:'Pro',      reason:'LinkedIn requires slow extraction mode and session management at scale — Pro\'s higher task limits and IP pool are essential.' },
+      zillow:   { plan:'Standard', reason:'Zillow\'s JS rendering is handled natively by cloud extraction on Standard, and weekly scheduling covers most real estate workflows.' },
+      yelp:     { plan:'Standard', reason:'Yelp scraping at moderate volume fits Standard — cloud tasks, auto-pagination, and CSV export are all included.' },
+      indeed:   { plan:'Standard', reason:'Job listing monitoring with daily scheduling is a good fit for Standard.' },
+      ebay:     { plan:'Standard', reason:'eBay product and pricing data at regular cadence works well on Standard.' },
+      travel:   { plan:'Standard', reason:'Travel platform data (Airbnb, Booking.com) with weekly scheduling fits comfortably on Standard.' },
+      generic:  { plan:'Standard', reason:'Cloud extraction and scheduling on Standard cover most website-specific scraping needs.' },
+    },
+    tech: {
+      captcha:    { plan:'Pro',      reason:'Pro includes built-in CAPTCHA solving and access to residential proxies — the most reliable long-term solution.' },
+      ratelimit:  { plan:'Pro',      reason:'Pro\'s automatic IP rotation and residential proxy pool are designed specifically for sites with aggressive rate limiting.' },
+      login:      { plan:'Standard', reason:'Cookie import and login recording are available from Standard upward.' },
+      pagination: { plan:'Standard', reason:'Auto-pagination and infinite scroll handling are fully supported on Standard.' },
+      export:     { plan:'Standard', reason:'API, webhook, and Google Sheets sync are all available on Standard.' },
+      cloud:      { plan:'Standard', reason:'Cloud extraction and scheduling are core Standard features.' },
+      generic:    { plan:'Standard', reason:'Standard covers the majority of technical use cases with cloud extraction and full export options.' },
+    },
+  };
+
+  const intentMap = map[ctx.intent];
+  if (!intentMap) return null;
+  return intentMap[ctx.key] || intentMap['generic'] || null;
+}
+
 // ── Helpers ───────────────────────────────
 function stepsHTML(s){
   const id='steps_'+Math.random().toString(36).slice(2,8);
   const list=s.map((x,i)=>`<li class="step"><div class="step-n">${i+1}.</div><div><div class="step-t">${x.t}</div><div class="step-d">${x.d}</div></div></li>`).join('');
   return`<button class="steps-toggle" onclick="toggleSteps(this)" aria-expanded="false" data-target="${id}"><i class="steps-toggle-arrow">▶</i> ${s.length} steps to get started</button><div class="steps-body" id="${id}"><ul class="steps">${list}</ul></div>`;
+}
+function stepsOpen(s){
+  if(!s||!s.length) return '';
+  const list=s.map((x,i)=>`<li class="step"><div class="step-n">${i+1}.</div><div><div class="step-t">${x.t}</div><div class="step-d">${x.d}</div></div></li>`).join('');
+  return`<ul class="steps" style="margin-top:10px;margin-bottom:4px">${list}</ul>`;
 }
 function toggleSteps(btn){
   const open=btn.getAttribute('aria-expanded')==='true';
@@ -916,8 +1057,52 @@ function toggleSteps(btn){
   const body=document.getElementById(btn.dataset.target);
   if(body) body.classList.toggle('open',!open);
 }
-function tplHTML(t){if(!t)return'';return`<div class="tpl-row"><span class="tpl-row-name">📋 ${t.name}</span><a href="#" class="tpl-btn">Use Template →</a></div>`;}
-function ctaHTML(){return'';}  // CTAs live in modal footer
+function tplHTML(t){
+  if(!t) return '';
+  const fields = (t.fields||[]).join(' · ');
+  return `<div class="tpl-card">
+    <div class="tpl-card-info">
+      <div class="tpl-card-label">📋 Ready-to-use template</div>
+      <div class="tpl-card-name">${t.name}</div>
+      <div class="tpl-card-fields">${fields}</div>
+    </div>
+    <a href="https://www.octoparse.com/template" target="_blank" class="tpl-card-btn">Use Template →</a>
+  </div>`;
+}
+
+function customTaskHTML(fields){
+  const fieldsLine = fields.length
+    ? `<div class="fields-inline" style="margin-top:10px">Collectable fields: ${fields.join(' · ')}</div>` : '';
+  return `<div class="custom-guide">
+    <div class="custom-guide-label">No template needed — start a custom task in minutes</div>
+    <div class="custom-steps">
+      <div class="custom-step">
+        <div class="custom-step-num">1</div>
+        <div>
+          <div class="custom-step-t">Download Octoparse</div>
+          <div class="custom-step-d">Free desktop app for Windows &amp; Mac. No coding required — handles JavaScript, login walls, and pagination out of the box.</div>
+          <a href="https://www.octoparse.com/download" target="_blank" class="custom-step-link">⬇ Download Free →</a>
+        </div>
+      </div>
+      <div class="custom-step">
+        <div class="custom-step-num">2</div>
+        <div>
+          <div class="custom-step-t">Paste the URL and run Auto-Detect</div>
+          <div class="custom-step-d">Octoparse scans the page and automatically identifies all extractable data fields. Just click to confirm what you want — your workflow is created instantly, no configuration needed.</div>
+        </div>
+      </div>
+      <div class="custom-step">
+        <div class="custom-step-num">3</div>
+        <div>
+          <div class="custom-step-t">Run locally or schedule in the cloud</div>
+          <div class="custom-step-d">Extract on demand or set a recurring schedule. Export to CSV, Excel, Google Sheets, or connect via API.</div>
+        </div>
+      </div>
+    </div>
+    ${fieldsLine}
+  </div>`;
+}
+function ctaHTML(){return'';}
 function handoff(){alert('Opens Intercom chat with your conversation context pre-filled.');}
 
 // ── Escape key ──────────────────────────────
@@ -953,6 +1138,7 @@ function buildResponseHTML(intent,msg){
   if(intent==='business') renderBusiness(tmp,msg);
   else if(intent==='howto') renderHowto(tmp,msg);
   else if(intent==='tech') renderTech(tmp,msg);
+  else if(intent==='pricing') renderPricing(tmp,msg);
   else renderChat(tmp,msg);
   return tmp.innerHTML;
 }
@@ -961,6 +1147,7 @@ function getKey(intent,msg){
   if(intent==='business') return getBiz(msg);
   if(intent==='howto') return getSite(msg);
   if(intent==='tech') return getTech(msg);
+  if(intent==='pricing') return 'pricing';
   return 'generic';
 }
 
@@ -991,10 +1178,12 @@ function getSuggestions(intent,key){
     cloud:["How to get email alerts on run completion?","How do incremental runs work?","How to view and replay past run history?"],
     generic:["How do I set up cloud extraction?","How do I avoid getting blocked?","Where can I find pre-built templates?"]
   };
+  const pricing=["Do you offer annual discounts?","What's included in the Enterprise plan?","Can I try Pro before paying?"];
   const chat=["Tell me your data collection goal","How to scrape Amazon products?","How do I handle CAPTCHA?"];
   if(intent==='business') return b[key]||b.generic;
   if(intent==='howto') return h[key]||h.generic;
   if(intent==='tech') return t[key]||t.generic;
+  if(intent==='pricing') return pricing;
   return chat;
 }
 
@@ -1027,17 +1216,19 @@ function addAIBubble(html,sugs){
   const chat=document.getElementById('modalChat');
   const el=document.createElement('div');
   el.className='msg-ai';
+  const supportHTML=`<div class="support-entry">Need personalized guidance? <a href="#" onclick="handoff();return false;">Talk to our team →</a></div>`;
   let sugHTML='';
   if(sugs&&sugs.length){
     sugHTML=`<div class="suggestions"><div class="suggestions-label">You might also ask</div><div class="suggestions-chips">${sugs.map(s=>`<button class="suggestion-chip" onclick="useSuggestion(this)">${escHtml(s)}</button>`).join('')}</div></div>`;
   }
-  el.innerHTML=`<div class="msg-ai-row"><div class="msg-avatar">🤖</div><div class="msg-bubble-ai">${html}</div></div>${sugHTML}`;
+  el.innerHTML=`<div class="msg-ai-row"><div class="msg-avatar">🤖</div><div class="msg-bubble-ai">${html}${supportHTML}</div></div>${sugHTML}`;
   chat.appendChild(el);
   chat.scrollTop=chat.scrollHeight;
 }
 
 // ── Modal open/send ────────────────────────
 function openModal(firstMsg){
+  convCtx = { intent: null, key: null }; // reset context for new conversation
   const chat=document.getElementById('modalChat');
   chat.innerHTML='';
   document.getElementById('modalOverlay').classList.add('open');
@@ -1048,6 +1239,7 @@ function openModal(firstMsg){
     removeTyping();
     const intent=classify(firstMsg);
     const key=getKey(intent,firstMsg);
+    updateCtx(intent,key);
     addAIBubble(buildResponseHTML(intent,firstMsg), getSuggestions(intent,key));
   },900);
 }
@@ -1071,52 +1263,130 @@ function dispatchConv(msg){
     removeTyping();
     const intent=classify(msg);
     const key=getKey(intent,msg);
+    updateCtx(intent,key);
     addAIBubble(buildResponseHTML(intent,msg), getSuggestions(intent,key));
   },900);
 }
 
 // ── Renderers ─────────────────────────────
+function ctxLinks(...links){
+  return`<div class="ctx-links">${links.map(([label,url,primary])=>
+    `<a href="${url}" target="_blank" class="ctx-link${primary?' primary':''}">${label}</a>`
+  ).join('')}</div>`;
+}
+
 function renderBusiness(area,msg){
   const k=getBiz(msg),d=BIZ[k]||BIZ.generic;
-  // Coverage overview: each source → its extractable fields
-  const coverageHTML=`<div class="coverage-overview"><div class="coverage-title">Websites &amp; extractable fields</div>${d.sources.map(s=>{const fields=s.tpl?s.tpl.fields:(s.fields||[]);return`<div class="coverage-row"><span class="coverage-site">${s.icon} ${s.name}</span><span class="coverage-fields">${fields.join(' · ')}</span></div>`;}).join('')}</div>`;
+  const hasAnyTpl=d.sources.some(s=>s.tpl);
   const sourcesHTML=d.sources.map((s,i)=>{
+    const fields=s.tpl?s.tpl.fields:(s.fields||[]);
     return`<div class="source-section">
       <div class="source-header">
-        <div class="source-num">${i+1}</div>
+        <span class="source-num">${i+1}</span>
         <div class="source-header-name">${s.icon} ${s.name}</div>
-        <span class="${s.badge==='tpl'?'badge-tpl':'badge-custom'}">${s.badge==='tpl'?'✓ Template Available':'Custom Task'}</span>
+        <span class="${s.badge==='tpl'?'badge-tpl':'badge-custom'}">${s.badge==='tpl'?'✓ Template':'Custom'}</span>
       </div>
       <div class="source-body">
         <div class="source-why">${s.why}</div>
-        ${s.tpl?tplHTML(s.tpl):''}
-        ${stepsHTML(s.steps)}
-        ${s.note?`<div class="note">${s.note}</div>`:''}
+        ${s.tpl ? tplHTML(s.tpl) : customTaskHTML(fields)}
       </div>
-    </div>`;}).join('');
+    </div>`;
+  }).join('');
   area.innerHTML=`<div class="resp-wrap">
-    <div class="intent-row"><span class="intent-badge business">Business Goal</span><span class="intent-text">${d.intent}</span></div>
-    <div class="resp-tags">${d.needTags.map(t=>`<span class="need-tag">${t}</span>`).join('')}</div>
-    ${coverageHTML}
+    <div class="intent-row"><span class="intent-badge business">Business Goal</span></div>
+    <p class="resp-note">${d.needNote}</p>
     ${sourcesHTML}
-    ${ctaHTML()}
+    ${ctxLinks(
+      ['Browse Template Library →','https://www.octoparse.com/template', hasAnyTpl],
+      ['Explore Data Service →','https://www.octoparse.com/data-service', false]
+    )}
   </div>`;
 }
+
 function renderHowto(area,msg){
   const k=getSite(msg),d=HOWTO[k]||HOWTO.generic;
-  area.innerHTML=`<div class="resp-wrap"><div class="intent-row"><span class="intent-badge howto">How-To Guide</span><span class="intent-text">${d.intent}</span></div>${tplHTML(d.tpl)}${stepsHTML(d.steps)}${d.note?`<div class="note">${d.note}</div>`:''}${ctaHTML()}</div>`;
+  const tplBlock = d.tpl
+    ? tplHTML(d.tpl)+`<div class="fields-inline">Collectable fields: ${d.tpl.fields.join(' · ')}</div>`
+    : customTaskHTML([]);
+  area.innerHTML=`<div class="resp-wrap">
+    <div class="intent-row"><span class="intent-badge howto">How-To Guide</span><span class="intent-text">${d.intent}</span></div>
+    ${tplBlock}
+    ${stepsOpen(d.steps)}
+    ${d.note?`<div class="note">💡 ${d.note.replace(/^[⚠️💡]\s*/,'')}</div>`:''}
+    ${ctxLinks(
+      d.tpl
+        ? ['Browse Template Library →','https://www.octoparse.com/template', true]
+        : ['⬇ Download Octoparse →','https://www.octoparse.com/download', true],
+      ['View Help Center →','https://helpcenter.octoparse.com', false]
+    )}
+  </div>`;
 }
+
 function renderTech(area,msg){
   const k=getTech(msg),d=TECH[k]||TECH.generic;
-  area.innerHTML=`<div class="resp-wrap"><div class="intent-row"><span class="intent-badge tech">Technical Solution</span><span class="intent-text">${d.intent}</span></div><div class="resp-heading">${d.heading}</div>${d.solutions.map(s=>`<div class="solution"><div class="solution-t">${s.icon} ${s.t}</div><div class="solution-d">${s.d}</div><a href="#" class="doc-link">📖 ${s.doc}</a></div>`).join('')}${ctaHTML()}</div>`;
+  area.innerHTML=`<div class="resp-wrap">
+    <div class="intent-row"><span class="intent-badge tech">Technical Solution</span><span class="intent-text">${d.intent}</span></div>
+    <p class="resp-note">${d.heading}</p>
+    ${d.solutions.map(s=>`<div class="solution"><div class="solution-t">${s.icon} ${s.t}</div><div class="solution-d">${s.d}</div><a href="#" class="doc-link">📖 ${s.doc}</a></div>`).join('')}
+    ${ctxLinks(
+      ['Visit Help Center →','https://helpcenter.octoparse.com', true],
+      ['⬇ Download Octoparse →','https://www.octoparse.com/download', false]
+    )}
+  </div>`;
 }
+
+function renderPricing(area,msg){
+  const m=msg.toLowerCase();
+  const isDiscount=/discount|coupon|promo|save|cheaper|deal/.test(m);
+  const rec=getRecommendedPlan(convCtx);
+
+  const plansHTML=PRICING.plans.map(p=>{
+    const isRec=rec&&p.name===rec.plan;
+    return`<div class="plan-row${isRec?' recommended':''}">
+      <div class="plan-name">${p.name}${isRec?'<span class="plan-rec-badge">★ For you</span>':''}</div>
+      <div class="plan-price">${p.price}</div>
+      <div class="plan-desc">${p.desc}</div>
+    </div>`;
+  }).join('');
+
+  const recBlock=rec
+    ? `<div class="plan-rec-box">
+        <div class="plan-rec-box-label">Recommended for your use case</div>
+        <div class="plan-rec-box-text">Based on what you've described, <strong>${rec.plan}</strong> is the right fit — ${rec.reason}</div>
+      </div>`
+    : `<p class="pricing-intro">${PRICING.intro}</p>`;
+
+  const discountBlock=isDiscount
+    ? `<div class="pricing-note" style="margin-top:8px">💬 <strong>Discounts:</strong> ${PRICING.discount}</div>`
+    : '';
+
+  area.innerHTML=`<div class="resp-wrap">
+    <div class="intent-row"><span class="intent-badge chat">Pricing</span></div>
+    ${recBlock}
+    <div class="plan-list">${plansHTML}</div>
+    <div class="pricing-note">💡 ${PRICING.note}</div>
+    ${discountBlock}
+    ${ctxLinks(
+      ['View Full Pricing →','https://www.octoparse.com/pricing', true],
+      ['Talk to Sales →','https://www.octoparse.com/contact', false]
+    )}
+  </div>`;
+}
+
 function renderChat(area,msg){
   const m=msg.toLowerCase();
   let h='';
-  if(/price|pricing|cost|plan/.test(m)) h=`<p>Plans start from <strong>$75/month</strong>, with a <strong>free plan</strong> for up to 10 local tasks.</p><p>The Pro plan at <strong>$209/month</strong> adds cloud extraction, scheduling, and team features. All plans include a <strong>14-day free trial</strong>.</p>`;
-  else if(/hello|hi|hey|what can|help/.test(m)) h=`<p>Hi! I'm Octoparse's AI Advisor 👋</p><p>I can help with:<br>• <strong>Data sources</strong> — describe your business goal<br>• <strong>Step-by-step guides</strong> — name a specific website<br>• <strong>Technical problems</strong> — describe the issue</p>`;
-  else h=`<p>I specialize in web scraping with Octoparse. Try asking:</p><p>• What's your data collection goal?<br>• Which website do you want to scrape?<br>• What technical challenge are you facing?</p>`;
-  area.innerHTML=`<div class="resp-wrap"><div class="intent-row"><span class="intent-badge chat">AI Advisor</span></div><div class="chat-text">${h}</div><div class="resp-cta"><a href="#" class="cta-primary">🚀 Start Free Trial</a><span class="handoff" onclick="handoff()">💬 Talk to a human</span></div></div>`;
+  if(/hello|hi|hey|what can|help/.test(m))
+    h=`<p>Hi! I'm the Octoparse AI Advisor 👋 Tell me what data you're looking for — your business goal, a specific website, or a technical challenge — and I'll show you exactly how Octoparse can collect it.</p>`;
+  else
+    h=`<p>Tell me what data you're trying to collect, or which website you have in mind. I'll show you what Octoparse can pull from it and how quickly you can get started.</p>`;
+  area.innerHTML=`<div class="resp-wrap">
+    <div class="chat-text">${h}</div>
+    ${ctxLinks(
+      ['Browse Templates →','https://www.octoparse.com/template', false],
+      ['⬇ Download Free →','https://www.octoparse.com/download', false]
+    )}
+  </div>`;
 }
 
 // ── Send (main card) ───────────────────────
